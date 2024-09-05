@@ -1,0 +1,95 @@
+name: Siso - 밸런스 게임 배포 자동화 워크 플로우(prod)
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  checks: write
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }} # backend 변경 여부를 출력으로 설정
+      frontend: ${{ steps.filter.outputs.frontend }} # frontend 변경 여부를 출력으로 설정
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 모든 Git 히스토리를 가져옴
+      - name: Get previous tag
+        id: previoustag
+        run: echo "PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ --always)" >> $GITHUB_OUTPUT
+        # 이전 태그를 찾아서 환경 변수로 저장
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          base: ${{ steps.previoustag.outputs.PREVIOUS_TAG }} # 이전 태그 기준
+          ref: ${{ github.ref }} # 현재 GitHub 참조(커밋, 태그 등)
+          filters: |
+            backend:
+              - 'backend/**'
+            frontend:
+              - 'frontend/**'
+  frontend-build:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./frontend
+
+    steps:
+      - name: Siso - 밸런스게임의 코드 가져오기
+        uses: actions/checkout@v4
+      - name: 노드 버전 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: 의존성 캐시 확인
+        uses: actions/cache@v4
+        with:
+          path: "frontend/node_modules"
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # package-lock.json을 기준으로 캐시 키 생성
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: 의존성 설치
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: 프론트엔드 빌드
+        run: npm run build
+
+      - name: 빌드 결과물 artifacts로 업로드해요
+        uses: actions/upload-artifact@v4
+        with:
+          name: siso
+          path: frontend/dist
+
+  deploy:
+    needs: frontend-build
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFRONT_DISTRIBUTION_ID_PROD: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      - name: Siso - 밸런스게임의 코드 가져오기
+        uses: actions/download-artifact@v4
+        with:
+          name: siso
+          path: ./frontend/dist
+      - name: AWS cloudfront 배포 및 캐싱 무효화
+        working-directory: ./frontend/dist/
+        run: |
+          aws s3 sync ./ s3://siso-balance-games --delete
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD }} --paths "/*"
+
+    #   - name: env 파일 생성
+    #     run: |
