@@ -65,31 +65,34 @@ jobs:
       - name: 프론트엔드 빌드
         run: npm run build
 
-      - name: 빌드 결과물 artifacts로 업로드해요
+      - name: 빌드 파일 아티팩트로 저장
         uses: actions/upload-artifact@v4
         with:
-          name: siso
+          name: frontend-dist
           path: frontend/dist
 
-  deploy:
+  frontend-deploy:
     needs: frontend-build
+    if: ${{ needs.detect-changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
-    env:
-      CLOUDFRONT_DISTRIBUTION_ID_PROD: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     steps:
-      - name: Siso - 밸런스게임의 코드 가져오기
+      - name: 빌드 파일 다운로드
         uses: actions/download-artifact@v4
         with:
-          name: siso
+          name: frontend-dist
           path: ./frontend/dist
-      - name: AWS cloudfront 배포 및 캐싱 무효화
-        working-directory: ./frontend/dist/
-        run: |
-          aws s3 sync ./ s3://siso-balance-games --delete
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD }} --paths "/*"
 
-    #   - name: env 파일 생성
-    #     run: |
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }} # Replace with your AWS region
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./frontend/dist s3://siso-balance-games --delete
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD }} --paths "/*"
