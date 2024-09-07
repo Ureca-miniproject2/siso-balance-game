@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
-
+import HSSantokki2Regular from '../assets/fonts/HSSanTokki2-Regular.woff';
 const GlobalStyle = createGlobalStyle`
+
+  @font-face {
+    font-family:"HSSantokki2-Regular";
+    font-style: normal;
+    font-weight: 400;
+    src: local("HSSantokki2Regular"), url(${HSSantokki2Regular}) format("woff");
+  }
+
   html,
   body,
   div,
@@ -101,6 +109,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: #F1F1F1;
   }
 
+  #root{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   article,
   aside,
   details,
@@ -153,6 +167,9 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     background-color: transparent;
   }
+
+
+
 `;
 
 export default GlobalStyle;
