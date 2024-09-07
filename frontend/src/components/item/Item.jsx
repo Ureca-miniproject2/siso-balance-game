@@ -1,9 +1,7 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import * as S from './Item.styled';
 
 export default function Item() {
-
   const [e, setE] = useState([]);
   useEffect(() => {
     const a = async () => {
