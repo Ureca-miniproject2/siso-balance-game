@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-
+import * as S from './GlobalLayout.styled';
 export default function GlobalLayout() {
   const [e, setE] = useState([]);
   useEffect(() => {
@@ -12,8 +12,9 @@ export default function GlobalLayout() {
     };
     a();
   }, []);
+
   return (
-    <div>
+    <S.GlobalLayoutContainer>
       <Outlet />
       {e.map((item) => {
         return (
@@ -23,6 +24,6 @@ export default function GlobalLayout() {
           </div>
         );
       })}
-    </div>
+    </S.GlobalLayoutContainer>
   );
 }
