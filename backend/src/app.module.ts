@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ItemModule } from './item/item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from 'src/configs/typeorm.config';
+import { GameModule } from './game/game.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { typeORMConfig } from 'src/configs/typeorm.config';
     }),
     AuthModule,
     ItemModule,
+    GameModule,
   ],
   controllers: [],
   providers: [],
