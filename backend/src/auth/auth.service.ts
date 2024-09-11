@@ -12,14 +12,14 @@ export class AuthService {
   ) {}
 
   findOne(userId: number): Promise<User> {
-    return this.usersRepository.findOneBy({ userId });
+    return this.usersRepository.findOneBy({ user_id: userId });
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     // Create a new User entity from the DTO
     const user = new User();
     user.username = createUserDto.username;
-    user.userId = createUserDto.userId;
+    user.user_id = createUserDto.userId;
 
     // Save the entity to the database
     return this.usersRepository.save(user);
