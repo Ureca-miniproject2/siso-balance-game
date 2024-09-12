@@ -9,6 +9,8 @@ const GlobalStyle = createGlobalStyle`
     src: local("HSSantokki2Regular"), url(${HSSantokki2Regular}) format("woff");
   }
 
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
   html,
   body,
   div,
