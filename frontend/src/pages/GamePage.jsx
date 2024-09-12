@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Choice from '../components/choice/Choice';
+import Comment from "../components/comments/Comments"
 
 export default function GamePage() {
     const [gameData, setGameData] = useState([])
@@ -16,5 +17,6 @@ export default function GamePage() {
     }, []);
     return (<>
         <Choice game={gameData} />
+        <Comment />
     </>)
 }
