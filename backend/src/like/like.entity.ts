@@ -1,5 +1,5 @@
-import { User } from 'src/auth/user.entity';
 import { Comment } from 'src/comment/comment.entity';
+import { User } from 'src/user/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

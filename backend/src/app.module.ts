@@ -7,6 +7,7 @@ import { typeORMConfig } from 'src/configs/typeorm.config';
 import { GameModule } from './game/game.module';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CommentModule } from './comment/comment.module';
     GameModule,
     LikeModule,
     CommentModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
