@@ -5,6 +5,9 @@ import { ItemModule } from './item/item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from 'src/configs/typeorm.config';
 import { GameModule } from './game/game.module';
+import { LikeModule } from './like/like.module';
+import { CommentModule } from './comment/comment.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -18,6 +21,9 @@ import { GameModule } from './game/game.module';
     AuthModule,
     ItemModule,
     GameModule,
+    LikeModule,
+    CommentModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/auth/dto/create-user.dto';
-import { User } from 'src/auth/user.entity';
+import { User } from 'src/user/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -9,19 +9,44 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
-  findOne(userId: number): Promise<User> {
-    return this.usersRepository.findOneBy({ userId });
+  async getJWT(kakaoId: number, username: string) {
+    const user = await this.kakaoValidateUser(kakaoId, username); // 카카오 정보 검증 및 회원가입 로직
+    const accessToken = this.generateAccessToken(user); // AccessToken 생성
+    return { accessToken };
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    // Create a new User entity from the DTO
-    const user = new User();
-    user.username = createUserDto.username;
-    user.userId = createUserDto.userId;
-
-    // Save the entity to the database
-    return this.usersRepository.save(user);
+  async kakaoValidateUser(kakaoId: number, username: string): Promise<User> {
+    let user: User = await this.usersRepository.findOneBy({ user_id: kakaoId }); // 유저 조회
+    if (!user) {
+      // 회원 가입 로직
+      user = this.usersRepository.create({
+        user_id: kakaoId,
+        username,
+      });
+    }
+    return user;
   }
+
+  generateAccessToken(user: User): string {
+    const payload = {
+      userId: user.user_id,
+    };
+    return this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+  }
+
+  // async generateRefreshToken(user: User): Promise<string> {
+  //   const payload = {
+  //     userId: user.user_id,
+  //   };
+
+  //   const refreshToken = this.jwtService.sign(payload);
+
+  //   return refreshToken;
+  // }
 }
