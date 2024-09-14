@@ -20,4 +20,9 @@ export class UserController {
     this.logger.log('Handling create user');
     return this.userService.createUser(createUserDto);
   }
+
+  @Get('/ping')
+  ping(): string {
+    return 'ping';
+  }
 }
