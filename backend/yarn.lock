@@ -1384,6 +1384,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jsonwebtoken@npm:*":
+  version: 9.0.6
+  resolution: "@types/jsonwebtoken@npm:9.0.6"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/9c29e3896e5fb6056e54d87514643e59e0cfb966ae25171a107776270195bba955f0373e98c8ed6450c145b18984f5df9cf0fcac360f382cec3c7c4d3510b202
+  languageName: node
+  linkType: hard
+
 "@types/jsonwebtoken@npm:9.0.5":
   version: 9.0.5
   resolution: "@types/jsonwebtoken@npm:9.0.5"
@@ -1425,6 +1434,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/passport-jwt@npm:^4":
+  version: 4.0.1
+  resolution: "@types/passport-jwt@npm:4.0.1"
+  dependencies:
+    "@types/jsonwebtoken": "npm:*"
+    "@types/passport-strategy": "npm:*"
+  checksum: 10c0/0ced0eaa7bb379d674821108d9bc6758223f1a5f2b9790ec78d3eaaccce6a58a424cf8ed22b53d813740ec53d929e21d92cf794ef0fb30c732866750763c0d7a
+  languageName: node
+  linkType: hard
+
 "@types/passport-kakao@npm:^1":
   version: 1.0.3
   resolution: "@types/passport-kakao@npm:1.0.3"
@@ -1432,6 +1451,16 @@ __metadata:
     "@types/express": "npm:*"
     "@types/passport": "npm:*"
   checksum: 10c0/35eed8f4a46bdbf4fee2494b6b813c15fb7a6ab833f65fbd15779e5581348e9baf38713155713905f3c4514ecf279cfcbddeaaa2d893941350e932ccec3d36ad
+  languageName: node
+  linkType: hard
+
+"@types/passport-strategy@npm:*":
+  version: 0.2.38
+  resolution: "@types/passport-strategy@npm:0.2.38"
+  dependencies:
+    "@types/express": "npm:*"
+    "@types/passport": "npm:*"
+  checksum: 10c0/d7d2b1782a0845bd8914250aa9213a23c8d9c2225db46d854b77f2bf0129a789f46d4a5e9ad336eca277fc7e0a051c0a2942da5c864e7c6710763f102d9d4295
   languageName: node
   linkType: hard
 
@@ -2236,6 +2265,7 @@ __metadata:
     "@types/jest": "npm:^29.5.2"
     "@types/node": "npm:^20.3.1"
     "@types/passport": "npm:^0"
+    "@types/passport-jwt": "npm:^4"
     "@types/passport-kakao": "npm:^1"
     "@types/supertest": "npm:^2.0.12"
     "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
@@ -2249,6 +2279,7 @@ __metadata:
     jest: "npm:^29.5.0"
     mysql2: "npm:^3.11.0"
     passport: "npm:^0.7.0"
+    passport-jwt: "npm:^4.0.1"
     passport-kakao: "npm:^1.0.1"
     prettier: "npm:^3.0.0"
     reflect-metadata: "npm:^0.1.13"
@@ -5072,7 +5103,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:9.0.2":
+"jsonwebtoken@npm:9.0.2, jsonwebtoken@npm:^9.0.0":
   version: 9.0.2
   resolution: "jsonwebtoken@npm:9.0.2"
   dependencies:
@@ -5993,6 +6024,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"passport-jwt@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "passport-jwt@npm:4.0.1"
+  dependencies:
+    jsonwebtoken: "npm:^9.0.0"
+    passport-strategy: "npm:^1.0.0"
+  checksum: 10c0/d7e2b472d399f596a1db31310f8e63d10777ab7468b9a378c964156e5f0a772598b007417356ead578cfdaf60dc2bba39a55f0033ca865186fdb2a2b198e2e7e
+  languageName: node
+  linkType: hard
+
 "passport-kakao@npm:^1.0.1":
   version: 1.0.1
   resolution: "passport-kakao@npm:1.0.1"
@@ -6014,7 +6055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"passport-strategy@npm:1.x.x":
+"passport-strategy@npm:1.x.x, passport-strategy@npm:^1.0.0":
   version: 1.0.0
   resolution: "passport-strategy@npm:1.0.0"
   checksum: 10c0/cf4cd32e1bf2538a239651581292fbb91ccc83973cde47089f00d2014c24bed63d3e65af21da8ddef649a8896e089eb9c3ac9ca639f36c797654ae9ee4ed65e1
