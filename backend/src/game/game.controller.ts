@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, UseGuards } from '@nestjs/common';
 import { GameService } from './game.service';
 import { Game } from 'src/game/game.entity';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('game')
 export class GameController {
@@ -14,6 +15,7 @@ export class GameController {
     return this.gameService.findAll();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async createGame(@Body() createGameDto: CreateGameDto): Promise<Game> {
     this.logger.log('Handling create game');

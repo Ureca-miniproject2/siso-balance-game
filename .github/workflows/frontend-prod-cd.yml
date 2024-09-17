@@ -1,4 +1,4 @@
-name: Siso - 밸런스 게임 배포 자동화 워크 플로우(prod)
+name: Siso - 밸런스 게임 프론트엔드 배포 자동화 워크 플로우(frontend-prod)
 
 on:
   push:
