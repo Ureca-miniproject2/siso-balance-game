@@ -48,6 +48,21 @@ export class GameService {
     return this.gamesRepository.findOneBy({ game_id: gameId });
   }
 
+  async findItemsByGameId(game_id: number): Promise<Item[]> {
+    // Game 엔티티에서 game_id를 기준으로 Item들을 가져옵니다.
+    const items = await this.itemsRepository
+      .createQueryBuilder('item')
+      .leftJoinAndSelect('item.game', 'game')
+      .where('game.game_id = :game_id', { game_id })
+      .getMany();
+
+    if (items.length === 0) {
+      throw new Error('No items found for the given game_id');
+    }
+
+    return items;
+  }
+
   async createGame(createGameDto: CreateGameDto): Promise<Game> {
     const { userId, firstItemText, secondItemText } = createGameDto;
 

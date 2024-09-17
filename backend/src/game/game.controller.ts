@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   Post,
   Query,
   UseGuards,
@@ -11,6 +12,7 @@ import { GameService } from './game.service';
 import { Game } from 'src/game/game.entity';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Item } from 'src/item/item.entity';
 
 @Controller('game')
 export class GameController {
@@ -26,6 +28,11 @@ export class GameController {
     const games = await this.gameService.findAll({ page, limit });
     const total = await this.gameService.countGames(); // 전체 게임 수 계산
     return { data: games, total };
+  }
+
+  @Get(':game_id/items')
+  async getItemsByGameId(@Param('game_id') game_id: number): Promise<Item[]> {
+    return this.gameService.findItemsByGameId(game_id);
   }
 
   @UseGuards(AuthGuard('jwt'))
