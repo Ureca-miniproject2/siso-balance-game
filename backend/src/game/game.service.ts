@@ -17,8 +17,31 @@ export class GameService {
     private itemsRepository: Repository<Item>,
   ) {}
 
-  findAll(): Promise<Game[]> {
-    return this.gamesRepository.find();
+  async findAll({
+    page = 1,
+    limit = 10,
+  }: {
+    page: number;
+    limit: number;
+  }): Promise<any[]> {
+    const offset = (page - 1) * limit;
+
+    // Game과 관련된 Item들을 JOIN
+    const games = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.items', 'item')
+      .orderBy('game.game_id', 'ASC')
+      .skip(offset)
+      .take(limit)
+      .getMany();
+
+    return games.map((game) => {
+      return { ...game };
+    });
+  }
+
+  async countGames(): Promise<number> {
+    return this.gamesRepository.count(); // 전체 게임 수 반환
   }
 
   findOne(gameId: number): Promise<Game> {

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Logger, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { GameService } from './game.service';
 import { Game } from 'src/game/game.entity';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
@@ -10,9 +18,14 @@ export class GameController {
   constructor(private readonly gameService: GameService) {}
 
   @Get()
-  findAll(): Promise<Game[]> {
+  async findAll(
+    @Query('page') page: number = 1, // 페이지 번호
+    @Query('limit') limit: number = 10, // 페이지당 항목 수
+  ): Promise<{ data: Game[]; total: number }> {
     this.logger.log('Handling Find All Games request');
-    return this.gameService.findAll();
+    const games = await this.gameService.findAll({ page, limit });
+    const total = await this.gameService.countGames(); // 전체 게임 수 계산
+    return { data: games, total };
   }
 
   @UseGuards(AuthGuard('jwt'))
