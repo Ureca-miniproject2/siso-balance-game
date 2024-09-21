@@ -64,10 +64,10 @@ export class GameService {
   }
 
   async createGame(createGameDto: CreateGameDto): Promise<Game> {
-    const { userId, firstItemText, secondItemText } = createGameDto;
+    const { user_id, firstItemText, secondItemText } = createGameDto;
 
     // 1. 사용자 조회
-    const user = await this.usersRepository.findOneBy({ user_id: userId });
+    const user = await this.usersRepository.findOneBy({ user_id });
     if (!user) {
       throw new Error('User not found');
     }
