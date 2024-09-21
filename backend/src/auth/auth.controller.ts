@@ -22,6 +22,7 @@ export class AuthController {
   @HttpCode(301)
   async kakaoLogin(@Req() req: Request, @Res() res: Response) {
     this.logger.log('Handling Kakao Login request');
+    this.logger.log(req.user);
     const { accessToken } = await this.authService.getJWT(
       req.user.kakaoId,
       req.user.username,

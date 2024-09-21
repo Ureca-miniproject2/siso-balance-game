@@ -9,6 +9,7 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -26,9 +27,11 @@ export class Comment {
   updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => Item, (item) => item.comments, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'item_id' })
   item: Item;
 
   @OneToMany(() => Like, (like) => like.comment)

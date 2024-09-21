@@ -1,4 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Comment } from 'src/comment/comment.entity';
+import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
+import { Item } from 'src/item/item.entity';
+import { User } from 'src/user/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class CommentService {}
+export class CommentService {
+  constructor(
+    @InjectRepository(Comment)
+    private commentsRepository: Repository<Comment>,
+  ) {}
+
+  async findCommentsByItemId(item_id: number): Promise<Comment[]> {
+    return this.commentsRepository.find({ where: { item: { item_id } } });
+  }
+
+  async createComment(createCommentDto: CreateCommentDto): Promise<Comment> {
+    const { user_id, comment_text, item_id } = createCommentDto;
+
+    const comment = new Comment();
+    const item = new Item();
+    const user = new User();
+
+    item.item_id = item_id;
+    comment.item = item;
+    user.user_id = user_id;
+
+    comment.user = user;
+    comment.comment_text = comment_text;
+
+    comment.created_at = new Date();
+    comment.updated_at = new Date();
+
+    return this.commentsRepository.save(comment);
+  }
+}

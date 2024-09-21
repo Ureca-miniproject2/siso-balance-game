@@ -17,19 +17,57 @@ export class GameService {
     private itemsRepository: Repository<Item>,
   ) {}
 
-  findAll(): Promise<Game[]> {
-    return this.gamesRepository.find();
+  async findAll({
+    page = 1,
+    limit = 10,
+  }: {
+    page: number;
+    limit: number;
+  }): Promise<any[]> {
+    const offset = (page - 1) * limit;
+
+    // Game과 관련된 Item들을 JOIN
+    const games = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.items', 'item')
+      .orderBy('game.game_id', 'ASC')
+      .skip(offset)
+      .take(limit)
+      .getMany();
+
+    return games.map((game) => {
+      return { ...game };
+    });
+  }
+
+  async countGames(): Promise<number> {
+    return this.gamesRepository.count(); // 전체 게임 수 반환
   }
 
   findOne(gameId: number): Promise<Game> {
     return this.gamesRepository.findOneBy({ game_id: gameId });
   }
 
+  async findItemsByGameId(game_id: number): Promise<Item[]> {
+    // Game 엔티티에서 game_id를 기준으로 Item들을 가져옵니다.
+    const items = await this.itemsRepository
+      .createQueryBuilder('item')
+      .leftJoinAndSelect('item.game', 'game')
+      .where('game.game_id = :game_id', { game_id })
+      .getMany();
+
+    if (items.length === 0) {
+      throw new Error('No items found for the given game_id');
+    }
+
+    return items;
+  }
+
   async createGame(createGameDto: CreateGameDto): Promise<Game> {
-    const { userId, firstItemText, secondItemText } = createGameDto;
+    const { user_id, firstItemText, secondItemText } = createGameDto;
 
     // 1. 사용자 조회
-    const user = await this.usersRepository.findOneBy({ user_id: userId });
+    const user = await this.usersRepository.findOneBy({ user_id });
     if (!user) {
       throw new Error('User not found');
     }

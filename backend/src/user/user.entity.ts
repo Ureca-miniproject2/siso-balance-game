@@ -1,9 +1,16 @@
 import { Comment } from 'src/comment/comment.entity';
 import { Game } from 'src/game/game.entity';
 import { Like } from 'src/like/like.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  OneToMany,
+  Unique,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
+@Unique(['user_id'])
 export class User {
   @PrimaryGeneratedColumn()
   user_id: number;

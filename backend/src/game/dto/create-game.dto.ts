@@ -8,5 +8,5 @@ export class CreateGameDto {
   secondItemText: string;
 
   @IsNotEmpty()
-  userId: number;
+  user_id: number;
 }

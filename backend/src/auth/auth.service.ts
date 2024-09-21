@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/user.entity';
@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
+  private logger = new Logger('AuthService');
+
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
@@ -22,11 +24,15 @@ export class AuthService {
     let user: User = await this.usersRepository.findOneBy({ user_id: kakaoId }); // 유저 조회
     if (!user) {
       // 회원 가입 로직
+      this.logger.log('회원가입 로직 실행');
+
       user = this.usersRepository.create({
         user_id: kakaoId,
         username,
       });
+      this.logger.log('user: ' + user.user_id + ' ' + user.username);
     }
+    user = await this.usersRepository.save(user);
     return user;
   }
 

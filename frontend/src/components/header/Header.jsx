@@ -5,9 +5,9 @@ export default function Header() {
       <S.HeaderWrapper>
         <S.HeaderTitle>SISO</S.HeaderTitle>
         <S.HeaderNav>
-          <S.HeaderNavItem to="/">로그인</S.HeaderNavItem>
+          <S.HeaderNavItem to="/login">로그인</S.HeaderNavItem>
           <S.HeaderNavItem to="/item">내 밸런스 게임</S.HeaderNavItem>
-          <S.HeaderNavItem to="/main">밸런스게임만들기</S.HeaderNavItem>
+          <S.HeaderNavItem to="/create">밸런스게임만들기</S.HeaderNavItem>
         </S.HeaderNav>
       </S.HeaderWrapper>
     </S.HeaderContainer>
