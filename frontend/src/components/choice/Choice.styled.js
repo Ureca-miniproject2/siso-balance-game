@@ -10,6 +10,7 @@ export const ItemContainer = styled.div`
 `;
 
 export const ItemList = styled.div`
+    word-break: keep-all;
     width: 100%;
     padding: 5rem;
     text-align:center;
@@ -26,6 +27,7 @@ export const ItemList = styled.div`
 `;
 
 export const ItemList2 = styled.div`
+    word-break: keep-all;
     width: 100%;
     padding: 5rem;
     text-align:center;

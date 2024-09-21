@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CommentContainer = styled.div`
-  width: 100%;
+  width: 50%;
   background-color: ${(props) =>
     props.isBest ? props.theme.colors.gray150 : props.theme.colors.gray100};
   border-right: 0.1rem solid ${(props) => props.theme.colors.gray200};
@@ -9,20 +9,20 @@ export const CommentContainer = styled.div`
 `;
 
 export const CommentContainer2 = styled.div`
-  width: 100%;
+  width: 50%;
   background-color: ${(props) =>
     props.isBest ? props.theme.colors.gray150 : props.theme.colors.gray100};
   border-left: 0.1rem solid ${(props) => props.theme.colors.gray200};
   padding: 2.5rem;
 `;
 
-export const Container = styled.div`
-  display: flex;
-`;
+// export const Container = styled.div`
+//   display: flex;
+// `;
 
 export const BestButton = styled.div`
   font-family: 'Pretendard-medium';
-  display: flex;
+  display: ${(props) => (props.isBest ? 'flex' : 'none')};
   width: 4.8rem;
   height: 2rem;
   justify-content: center;

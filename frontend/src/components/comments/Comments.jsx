@@ -1,51 +1,41 @@
 import React from 'react';
-import * as S from './Comments.styled';
 import { useEffect, useState } from 'react';
 import timeAgo from '../../utils/timeAgo';
-import HeartIcon from '../common/icon/HeartIcon';
-
+// import HeartIcon from '../common/icon/HeartIcon';
+import Comment from '../comments/comment/Comment';
+import { Container } from './comments.styled';
 
 export default function Comments() {
-    const [comment, SetComment] = useState([]);
-    useEffect(() => {
-        const a = async () => {
-            const res = await fetch('http://localhost:5173/api/comments');
-            const data = await res.json();
-            console.log(data.data);
-            SetComment(data.data);
-        };
-        a();
-    }, []);
+  const [comment, SetComment] = useState([]);
+  const [comment2, setComment2] = useState([]);
+  useEffect(() => {
+    const a = async () => {
+      const res = await fetch('http://localhost:5173/api/comments');
+      const data = await res.json();
+      console.log(data.data);
+      SetComment(data.data);
+    };
 
-    return (
-        <div>
-            {comment.map((comments) => {
-                console.log(comments.nickname);
+    const b = async () => {
+      const res = await fetch('http://localhost:5173/api/comments');
+      const data = await res.json();
+      console.log(data.data);
+      setComment2(data.data);
+    };
+    b();
+    a();
+  }, []);
 
-                return (
-                    <S.Container>
-                    <S.CommentContainer>
-                        <S.TopContainer key={comments.id}>
-                            <S.NickNameStyle>{comments.nickname}</S.NickNameStyle>
-                            <S.TimeStyle>{comments.time}</S.TimeStyle>
-                            <S.LikeContainer><S.HeartIcon><HeartIcon /></S.HeartIcon><S.LikeStyle>{comments.like}</S.LikeStyle></S.LikeContainer>
-                        </S.TopContainer>
-                        <S.CommentStyle>{comments.comment}</S.CommentStyle>
-                    </S.CommentContainer>
-
-                    <S.CommentContainer2>
-                        <S.TopContainer key={comments.id}>
-                            <S.NickNameStyle>{comments.nickname}</S.NickNameStyle>
-                            <S.TimeStyle>{comments.time}</S.TimeStyle>
-                            <S.LikeContainer><S.HeartIcon><HeartIcon /></S.HeartIcon><S.LikeStyle>{comments.like}</S.LikeStyle></S.LikeContainer>
-                        </S.TopContainer>
-                        <S.CommentStyle>{comments.comment}</S.CommentStyle>
-                    </S.CommentContainer2>
-                    </S.Container>
-                );
-            })}
-            {/* {timeAgo(props.createdAt)} */}
-        </div>
-    );
-};
-
+  return (
+    <>
+      <Comment
+        isBest={true}
+        id="1"
+        nickname="이지영"
+        time="23분 전"
+        like="3"
+        comment="뭘 먹을지 고민해보자 곱창 등갈비 족발 냠냠"
+      />
+    </>
+  );
+}

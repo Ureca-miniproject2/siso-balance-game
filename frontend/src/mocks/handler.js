@@ -13,11 +13,11 @@ export const handlers = [
     return HttpResponse.json({ data: item });
   }),
 
-  http.get("/api/game/1", () => {
-    return HttpResponse.json({ data: game })
+  http.get('/api/game/:id', () => {
+    return HttpResponse.json({ data: game });
   }),
 
-  http.get("/api/comments", () => {
-    return HttpResponse.json({ data: comments })
-  })
+  http.get('/api/comments', () => {
+    return HttpResponse.json({ data: comments });
+  }),
 ];
