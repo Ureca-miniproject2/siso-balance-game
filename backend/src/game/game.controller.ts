@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { GameService } from './game.service';
@@ -13,6 +14,7 @@ import { Game } from 'src/game/game.entity';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Item } from 'src/item/item.entity';
+import { Request } from 'express';
 
 @Controller('game')
 export class GameController {
@@ -37,8 +39,12 @@ export class GameController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  async createGame(@Body() createGameDto: CreateGameDto): Promise<Game> {
+  async createGame(
+    @Req() req: Request,
+    @Body() createGameDto: CreateGameDto,
+  ): Promise<Game> {
+    const kakaoId = req.user.kakaoId;
     this.logger.log('Handling create game');
-    return this.gameService.createGame(createGameDto);
+    return this.gameService.createGame({ ...createGameDto, user_id: kakaoId });
   }
 }
