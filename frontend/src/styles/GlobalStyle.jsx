@@ -170,7 +170,9 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
   }
 
-
+  input {
+    all: unset;
+  }
 
 `;
 

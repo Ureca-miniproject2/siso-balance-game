@@ -14,7 +14,6 @@ export default function Game() {
     a();
   }, []);
 
-
   return (
     <S.ItemContainer>
       {games.map((game) => {
