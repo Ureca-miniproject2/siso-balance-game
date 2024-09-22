@@ -63,11 +63,14 @@ export class GameService {
     return items;
   }
 
-  async createGame(createGameDto: CreateGameDto): Promise<Game> {
-    const { user_id, firstItemText, secondItemText } = createGameDto;
+  async createGame(
+    userId: number,
+    createGameDto: CreateGameDto,
+  ): Promise<Game> {
+    const { firstItemText, secondItemText } = createGameDto;
 
     // 1. 사용자 조회
-    const user = await this.usersRepository.findOneBy({ user_id });
+    const user = await this.usersRepository.findOneBy({ user_id: userId });
     if (!user) {
       throw new Error('유저를 찾을 수 없습니다.');
     }

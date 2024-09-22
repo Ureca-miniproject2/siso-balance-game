@@ -5,6 +5,7 @@ import {
   Get,
   Logger,
   Param,
+  ParseIntPipe,
   Post,
   Query,
   Req,
@@ -46,7 +47,7 @@ export class GameController {
   ): Promise<Game> {
     const kakaoId = req.user.kakaoId;
     this.logger.log('Handling create game');
-    return this.gameService.createGame({ ...createGameDto, user_id: kakaoId });
+    return this.gameService.createGame(kakaoId, createGameDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -60,7 +61,7 @@ export class GameController {
   @Delete(':game_id')
   async deleteGame(
     @Req() req: Request,
-    @Param('game_id') game_id: number,
+    @Param('game_id', ParseIntPipe) game_id: number,
   ): Promise<void> {
     const kakaoId = req.user.kakaoId;
     return this.gameService.deleteGame(kakaoId, game_id);
