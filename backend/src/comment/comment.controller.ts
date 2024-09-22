@@ -1,4 +1,4 @@
-import { Controller, Delete, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Post, Req, UseGuards } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 import { Comment } from 'src/comment/comment.entity';
@@ -14,20 +14,17 @@ export class CommentController {
   @Post()
   async createComment(
     @Req() req: Request,
-    createCommentDto: CreateCommentDto,
+    @Body() createCommentDto: CreateCommentDto,
   ): Promise<Comment> {
     const kakaoId = req.user.kakaoId;
-    return this.commentService.createComment({
-      ...createCommentDto,
-      user_id: kakaoId,
-    });
+    return this.commentService.createComment(kakaoId, createCommentDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete()
   async deleteComment(
     @Req() req: Request,
-    deleteCommentDto: DeleteCommentDto,
+    @Body() deleteCommentDto: DeleteCommentDto,
   ): Promise<void> {
     const kakaoId = req.user.kakaoId;
     return this.commentService.deleteComment(kakaoId, deleteCommentDto);

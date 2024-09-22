@@ -27,8 +27,11 @@ export class CommentService {
     });
   }
 
-  async createComment(createCommentDto: CreateCommentDto): Promise<Comment> {
-    const { user_id, comment_text, item_id } = createCommentDto;
+  async createComment(
+    userId: number,
+    createCommentDto: CreateCommentDto,
+  ): Promise<Comment> {
+    const { comment_text, item_id } = createCommentDto;
 
     const comment = new Comment();
     const item = new Item();
@@ -36,7 +39,7 @@ export class CommentService {
 
     item.item_id = item_id;
     comment.item = item;
-    user.user_id = user_id;
+    user.user_id = userId;
 
     comment.user = user;
     comment.comment_text = comment_text;
