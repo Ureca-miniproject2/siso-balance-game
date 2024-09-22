@@ -69,7 +69,7 @@ export class GameService {
     // 1. 사용자 조회
     const user = await this.usersRepository.findOneBy({ user_id });
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('유저를 찾을 수 없습니다.');
     }
 
     // 2. 게임 생성
@@ -97,5 +97,17 @@ export class GameService {
     return this.gamesRepository.find({
       where: { user: { user_id } },
     });
+  }
+
+  async deleteGame(user_id: number, game_id: number): Promise<void> {
+    const game = await this.gamesRepository.findOne({
+      where: { game_id, user: { user_id } },
+    });
+
+    if (!game) {
+      throw new Error('게임을 찾을 수 없습니다.');
+    }
+
+    await this.gamesRepository.remove(game);
   }
 }

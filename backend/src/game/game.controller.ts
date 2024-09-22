@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -53,5 +54,15 @@ export class GameController {
   async findGamesByUserId(@Req() req: Request): Promise<Game[]> {
     const kakaoId = req.user.kakaoId;
     return this.gameService.findGamesByUserId(kakaoId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Delete(':game_id')
+  async deleteGame(
+    @Req() req: Request,
+    @Param('game_id') game_id: number,
+  ): Promise<void> {
+    const kakaoId = req.user.kakaoId;
+    return this.gameService.deleteGame(kakaoId, game_id);
   }
 }
