@@ -47,4 +47,11 @@ export class GameController {
     this.logger.log('Handling create game');
     return this.gameService.createGame({ ...createGameDto, user_id: kakaoId });
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('user')
+  async findGamesByUserId(@Req() req: Request): Promise<Game[]> {
+    const kakaoId = req.user.kakaoId;
+    return this.gameService.findGamesByUserId(kakaoId);
+  }
 }

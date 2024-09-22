@@ -92,4 +92,10 @@ export class GameService {
     // 7. 게임의 아이템 목록 업데이트
     return this.gamesRepository.save(game);
   }
+
+  async findGamesByUserId(user_id: number): Promise<Game[]> {
+    return this.gamesRepository.find({
+      where: { user: { user_id } },
+    });
+  }
 }
