@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
+import { setupSwagger } from 'src/configs/setupSwagger';
 
 async function bootstrap() {
   const logger = new Logger();
@@ -13,6 +14,7 @@ async function bootstrap() {
     credentials: true,
   });
   app.use(cookieParser());
+  setupSwagger(app);
   await app.listen(port);
   logger.log(`Application is running on: ${port}`);
 }

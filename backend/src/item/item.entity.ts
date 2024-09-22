@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Comment } from 'src/comment/comment.entity';
 import { Game } from 'src/game/game.entity';
 import {
@@ -12,15 +13,31 @@ import {
 @Entity()
 export class Item {
   @PrimaryGeneratedColumn()
+  @ApiProperty({
+    description: '아이템의 고유 식별자',
+    example: 1,
+  })
   item_id: number;
 
   @Column()
+  @ApiProperty({
+    description: '아이템의 텍스트 내용',
+    example: 'This is an item text.',
+  })
   item_text: string;
 
   @ManyToOne(() => Game, (game) => game.items, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'game_id' }) // 외래 키 이름을 'game_id'로 명시적으로 설정
+  @JoinColumn({ name: 'game_id' })
+  @ApiProperty({
+    description: '이 아이템이 속한 게임',
+    type: () => Game,
+  })
   game: Game;
 
   @OneToMany(() => Comment, (comment) => comment.item)
+  @ApiProperty({
+    description: '아이템에 달린 댓글들',
+    type: () => [Comment],
+  })
   comments: Comment[];
 }
