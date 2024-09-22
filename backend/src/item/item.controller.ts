@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param } from '@nestjs/common';
+import { Controller, Get, Logger, Param, ParseIntPipe } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Comment } from 'src/comment/comment.entity';
 import { CommentService } from 'src/comment/comment.service';
@@ -15,7 +15,9 @@ export class ItemController {
     description: '아이템의 댓글들을 가져옵니다.',
     type: [Comment],
   })
-  async getCommentsByItemId(@Param('item_id') item_id: number): Promise<any[]> {
+  async getCommentsByItemId(
+    @Param('item_id', ParseIntPipe) item_id: number,
+  ): Promise<any[]> {
     return this.commentService.findCommentsByItemId(item_id);
   }
 }

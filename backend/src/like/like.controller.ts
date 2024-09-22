@@ -28,7 +28,7 @@ export class LikeController {
   })
   async likeComment(
     @Req() req: Request,
-    @Param('comment_id') commentId: number,
+    @Param('comment_id', ParseIntPipe) commentId: number,
   ): Promise<Like> {
     const kakaoId = req.user.kakaoId;
     return this.likeService.likeComment(kakaoId, commentId);
