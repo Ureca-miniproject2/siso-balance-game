@@ -5,8 +5,10 @@ import { Comment } from 'src/comment/comment.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('comment')
+@ApiTags('댓글 api')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 

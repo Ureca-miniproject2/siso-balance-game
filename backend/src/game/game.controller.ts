@@ -17,8 +17,10 @@ import { CreateGameDto } from 'src/game/dto/create-game.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Item } from 'src/item/item.entity';
 import { Request } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('game')
+@ApiTags('게임 api')
 export class GameController {
   private logger = new Logger('GameController');
   constructor(private readonly gameService: GameService) {}
