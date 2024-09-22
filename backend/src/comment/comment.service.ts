@@ -23,6 +23,7 @@ export class CommentService {
         'created_at',
         'updated_at',
         'user',
+        'likeCount',
       ],
     });
   }
