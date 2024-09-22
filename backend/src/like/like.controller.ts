@@ -11,9 +11,10 @@ import { LikeService } from './like.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Like } from 'src/like/like.entity';
 import { Request } from 'express';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('like')
+@ApiTags('좋아요 api')
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 

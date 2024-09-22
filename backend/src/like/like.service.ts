@@ -55,8 +55,16 @@ export class LikeService {
       });
 
       const savedLike = await queryRunner.manager.save(like);
-      await queryRunner.commitTransaction();
 
+      // 좋아요 수 증가
+      await queryRunner.manager.increment(
+        Comment,
+        { comment_id: commentId },
+        'likeCount',
+        1,
+      );
+
+      await queryRunner.commitTransaction();
       return savedLike;
     } catch (error) {
       // 에러 발생 시 트랜잭션 롤백
@@ -96,6 +104,15 @@ export class LikeService {
       }
 
       await queryRunner.manager.remove(like);
+
+      // 좋아요 수 감소
+      await queryRunner.manager.decrement(
+        Comment,
+        { comment_id: commentId },
+        'likeCount',
+        1,
+      );
+
       await queryRunner.commitTransaction();
     } catch (error) {
       // 에러 발생 시 트랜잭션 롤백

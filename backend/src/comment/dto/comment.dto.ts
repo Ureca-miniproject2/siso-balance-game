@@ -15,4 +15,7 @@ export class CommentDto {
 
   @ApiProperty({ description: 'The user who made the comment', type: String })
   user: string;
+
+  @ApiProperty({ description: 'The number of likes the comment has received' })
+  likeCount: number;
 }
