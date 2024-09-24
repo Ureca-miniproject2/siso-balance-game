@@ -7,9 +7,16 @@ export default function LoginPage() {
     }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}`;
   };
 
+  const handleCreateUser = () => {
+    fetch('http://localhost/user/create', {
+      method: 'POST',
+      credentials: 'include',
+    });
+  };
   return (
     <div>
       <img src={KakaoImage} alt="kakao image" onClick={handleKakaoRedirect} />
+      <div onClick={handleCreateUser}>안녕ㅎㅇㅇㄴㄹㄴㅇㄹ</div>
     </div>
   );
 }

@@ -30,7 +30,6 @@ export class AuthService {
         user_id: kakaoId,
         username,
       });
-      this.logger.log('user: ' + user.user_id + ' ' + user.username);
     }
     user = await this.usersRepository.save(user);
     return user;
