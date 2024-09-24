@@ -29,5 +29,6 @@ export const ButtonClick = styled.button`
     props.isActive &&
     `&:hover {
       background-color: ${props.theme.colors.gray400};
+      transition: 0.5s ease;
     }`}
 `;

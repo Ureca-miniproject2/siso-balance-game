@@ -33,7 +33,12 @@ export const HeaderNav = styled.nav`
 export const HeaderNavItem = styled(Link)`
   font-size: 2.4rem;
   font-weight: 400;
-  color: #000;
+  color: ${(props) => (props.isPage ? props.theme.colors.black : props.theme.colors.gray450)};
   text-decoration: none;
   font-family: 'HSSantokki2-Regular';
+
+  &:hover {
+    transition: 0.5s ease;
+    color: ${(props) => props.theme.colors.black};
+  }
 `;

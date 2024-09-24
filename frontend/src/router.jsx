@@ -4,6 +4,7 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import CreatePage from './pages/CreatePage/CreatePage';
 import GamePage from './pages/GamePage/GamePage';
+import MyGamePage from './pages/MyGamePage/MyGamePage';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
         element: <LoginPage />,
       },
       { path: '/create', element: <CreatePage /> },
+      { path: '/item', element: <MyGamePage /> },
     ],
   },
 ]);

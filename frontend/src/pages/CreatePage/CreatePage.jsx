@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import ItemCreate from '../../components/itemcreate/ItemCreate';
 
 export default function CreatePage() {
   useEffect(() => {
@@ -21,5 +22,5 @@ export default function CreatePage() {
     console.log('eef');
     postRequest();
   });
-  return <div>CreatePage</div>;
+  return <ItemCreate />;
 }

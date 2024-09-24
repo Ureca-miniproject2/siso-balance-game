@@ -1,9 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import timeAgo from '../../utils/timeAgo';
 // import HeartIcon from '../common/icon/HeartIcon';
 import Comment from '../comments/comment/Comment';
-import { Container } from './comments.styled';
 
 export default function Comments() {
   const [comment, SetComment] = useState([]);
