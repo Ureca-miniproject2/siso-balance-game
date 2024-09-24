@@ -2,7 +2,6 @@ import {
   Controller,
   Delete,
   Param,
-  ParseIntPipe,
   Post,
   Req,
   UseGuards,
@@ -29,7 +28,7 @@ export class LikeController {
   })
   async likeComment(
     @Req() req: Request,
-    @Param('comment_id', ParseIntPipe) commentId: number,
+    @Param('comment_id') commentId: string,
   ): Promise<Like> {
     const kakaoId = req.user.kakaoId;
     return this.likeService.likeComment(kakaoId, commentId);
@@ -41,7 +40,7 @@ export class LikeController {
   @ApiResponse({ status: 404, description: '댓글 좋아요가 없습니다.' })
   async unlikeComment(
     @Req() req: Request,
-    @Param('comment_id', ParseIntPipe) commentId: number,
+    @Param('comment_id') commentId: string,
   ) {
     const kakaoId = req.user.kakaoId;
     return this.likeService.unlikeComment(kakaoId, commentId);

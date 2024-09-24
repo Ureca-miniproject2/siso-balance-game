@@ -4,7 +4,7 @@ import { IsNotEmpty } from 'class-validator';
 export class ItemDto {
   @IsNotEmpty()
   @ApiProperty({ description: 'The ID of the item' })
-  item_id: number;
+  item_id: string;
 
   @IsNotEmpty()
   @ApiProperty({ description: 'The text of the item' })
@@ -12,7 +12,7 @@ export class ItemDto {
 
   @IsNotEmpty()
   @ApiProperty({ description: 'The ID of the game to which the item belongs' })
-  game_id: number;
+  game_id: string;
 
   @IsNotEmpty()
   @ApiProperty({ description: 'The number of comments on the item' })

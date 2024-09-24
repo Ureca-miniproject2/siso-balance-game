@@ -22,7 +22,7 @@ export class LikeService {
     private readonly dataSource: DataSource,
   ) {}
 
-  async likeComment(userId: number, commentId: number): Promise<Like> {
+  async likeComment(userId: string, commentId: string): Promise<Like> {
     // 트랜잭션을 위해 queryRunner 생성
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -76,7 +76,7 @@ export class LikeService {
     }
   }
 
-  async unlikeComment(userId: number, commentId: number): Promise<void> {
+  async unlikeComment(userId: string, commentId: string): Promise<void> {
     // 트랜잭션을 위해 queryRunner 생성
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();

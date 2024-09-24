@@ -5,5 +5,5 @@ export class CreateCommentDto {
   comment_text: string;
 
   @IsNotEmpty()
-  item_id: number;
+  item_id: string;
 }

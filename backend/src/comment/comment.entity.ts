@@ -18,9 +18,9 @@ export class Comment {
   @PrimaryGeneratedColumn()
   @ApiProperty({
     description: '댓글의 고유 식별자',
-    example: 1,
+    example: '1',
   })
-  comment_id: number;
+  comment_id: string;
 
   @Column()
   @ApiProperty({

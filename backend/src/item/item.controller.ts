@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Logger, Param } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Comment } from 'src/comment/comment.entity';
 import { CommentService } from 'src/comment/comment.service';
@@ -17,7 +17,7 @@ export class ItemController {
     type: [CommentDto],
   })
   async getCommentsByItemId(
-    @Param('item_id', ParseIntPipe) item_id: number,
+    @Param('item_id') item_id: string,
   ): Promise<Comment[]> {
     return this.commentService.findCommentsByItemId(item_id);
   }

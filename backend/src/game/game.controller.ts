@@ -5,7 +5,6 @@ import {
   Get,
   Logger,
   Param,
-  ParseIntPipe,
   Post,
   Query,
   Req,
@@ -87,7 +86,7 @@ export class GameController {
   @ApiOperation({ summary: '자신의 게임을 삭제합니다.' })
   async deleteGame(
     @Req() req: Request,
-    @Param('game_id', ParseIntPipe) game_id: number,
+    @Param('game_id') game_id: string,
   ): Promise<void> {
     const kakaoId = req.user.kakaoId;
     return this.gameService.deleteGame(kakaoId, game_id);

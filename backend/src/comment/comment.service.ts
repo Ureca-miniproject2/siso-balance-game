@@ -14,7 +14,7 @@ export class CommentService {
     private commentsRepository: Repository<Comment>,
   ) {}
 
-  async findCommentsByItemId(item_id: number): Promise<Comment[]> {
+  async findCommentsByItemId(item_id: string): Promise<Comment[]> {
     return this.commentsRepository.find({
       where: { item: { item_id } },
       select: [
@@ -29,7 +29,7 @@ export class CommentService {
   }
 
   async createComment(
-    userId: number,
+    userId: string,
     createCommentDto: CreateCommentDto,
   ): Promise<void> {
     const { comment_text, item_id } = createCommentDto;
@@ -52,7 +52,7 @@ export class CommentService {
   }
 
   async deleteComment(
-    userId: number,
+    userId: string,
     deleteCommentDto: DeleteCommentDto,
   ): Promise<void> {
     const { comment_id } = deleteCommentDto;

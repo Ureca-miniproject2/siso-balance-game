@@ -13,8 +13,8 @@ import {
 @Entity()
 export class Game {
   @PrimaryGeneratedColumn()
-  @ApiProperty({ description: '게임의 id', example: 1 })
-  game_id: number;
+  @ApiProperty({ description: '게임의 id', example: '1' })
+  game_id: string;
 
   @CreateDateColumn()
   @ApiProperty({

@@ -14,14 +14,17 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async getJWT(kakaoId: number, username: string) {
+  async getJWT(kakaoId: string, username: string) {
     const user = await this.kakaoValidateUser(kakaoId, username); // 카카오 정보 검증 및 회원가입 로직
     const accessToken = this.generateAccessToken(user); // AccessToken 생성
     return { accessToken };
   }
 
-  async kakaoValidateUser(kakaoId: number, username: string): Promise<User> {
-    let user: User = await this.usersRepository.findOneBy({ user_id: kakaoId }); // 유저 조회
+  async kakaoValidateUser(kakaoId: string, username: string): Promise<User> {
+    let user: User = await this.usersRepository.findOneBy({
+      user_id: kakaoId,
+    }); // 유저 조회
+
     if (!user) {
       // 회원 가입 로직
       this.logger.log('회원가입 로직 실행');
@@ -30,8 +33,8 @@ export class AuthService {
         user_id: kakaoId,
         username,
       });
+      this.usersRepository.save(user);
     }
-    user = await this.usersRepository.save(user);
     return user;
   }
 

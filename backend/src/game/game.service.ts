@@ -47,7 +47,7 @@ export class GameService {
     return this.gamesRepository.count(); // 전체 게임 수 반환
   }
 
-  findOne(gameId: number): Promise<Game> {
+  findOne(gameId: string): Promise<Game> {
     return this.gamesRepository.findOneBy({ game_id: gameId });
   }
 
@@ -72,7 +72,7 @@ export class GameService {
   }
 
   async createGame(
-    userId: number,
+    userId: string,
     createGameDto: CreateGameDto,
   ): Promise<void> {
     const { firstItemText, secondItemText } = createGameDto;
@@ -105,7 +105,7 @@ export class GameService {
   }
 
   async findGamesByUserId(
-    user_id: number,
+    user_id: string,
     page: number = 1,
     limit: number = 10,
   ): Promise<GameDto[]> {
@@ -125,7 +125,7 @@ export class GameService {
     return games.map((game) => this.toGameDto(game));
   }
 
-  async deleteGame(user_id: number, game_id: number): Promise<void> {
+  async deleteGame(user_id: string, game_id: string): Promise<void> {
     const game = await this.gamesRepository.findOne({
       where: { game_id, user: { user_id } },
     });

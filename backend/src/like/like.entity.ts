@@ -14,7 +14,7 @@ import {
 export class Like {
   @PrimaryGeneratedColumn()
   @ApiProperty({ description: '좋아요의 id', example: 1 })
-  like_id: number;
+  like_id: string;
 
   @CreateDateColumn()
   @ApiProperty({

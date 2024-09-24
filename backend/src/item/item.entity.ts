@@ -17,7 +17,7 @@ export class Item {
     description: '아이템의 고유 식별자',
     example: 1,
   })
-  item_id: number;
+  item_id: string;
 
   @Column()
   @ApiProperty({
