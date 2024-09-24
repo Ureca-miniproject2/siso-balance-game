@@ -8,16 +8,19 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 
 @Controller('auth')
+@ApiTags('인증 api')
 export class AuthController {
   private logger = new Logger('GameController');
 
   constructor(private readonly authService: AuthService) {}
 
   @Get('kakao')
+  @ApiOperation({ summary: '카카오 로그인' })
   @UseGuards(AuthGuard('kakao'))
   @HttpCode(301)
   async kakaoLogin(@Req() req: Request, @Res() res: Response) {

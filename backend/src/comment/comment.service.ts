@@ -23,12 +23,16 @@ export class CommentService {
         'created_at',
         'updated_at',
         'user',
+        'likeCount',
       ],
     });
   }
 
-  async createComment(createCommentDto: CreateCommentDto): Promise<Comment> {
-    const { user_id, comment_text, item_id } = createCommentDto;
+  async createComment(
+    userId: number,
+    createCommentDto: CreateCommentDto,
+  ): Promise<void> {
+    const { comment_text, item_id } = createCommentDto;
 
     const comment = new Comment();
     const item = new Item();
@@ -36,7 +40,7 @@ export class CommentService {
 
     item.item_id = item_id;
     comment.item = item;
-    user.user_id = user_id;
+    user.user_id = userId;
 
     comment.user = user;
     comment.comment_text = comment_text;
@@ -44,7 +48,7 @@ export class CommentService {
     comment.created_at = new Date();
     comment.updated_at = new Date();
 
-    return this.commentsRepository.save(comment);
+    await this.commentsRepository.save(comment);
   }
 
   async deleteComment(

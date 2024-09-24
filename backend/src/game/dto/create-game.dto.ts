@@ -6,7 +6,4 @@ export class CreateGameDto {
 
   @IsNotEmpty()
   secondItemText: string;
-
-  @IsNotEmpty()
-  user_id: number;
 }

@@ -40,4 +40,11 @@ export class Item {
     type: () => [Comment],
   })
   comments: Comment[];
+
+  @Column()
+  @ApiProperty({
+    description: '아이템이 선택된 횟수',
+    example: 1,
+  })
+  selected_count: number;
 }

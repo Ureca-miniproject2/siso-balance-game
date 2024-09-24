@@ -1,7 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Item } from 'src/item/item.entity';
-import { Like } from 'src/like/like.entity';
-import { User } from 'src/user/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -12,6 +8,10 @@ import {
   UpdateDateColumn,
   JoinColumn,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { Item } from 'src/item/item.entity';
+import { Like } from 'src/like/like.entity';
+import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Comment {
@@ -65,4 +65,11 @@ export class Comment {
     type: () => [Like],
   })
   likes: Like[];
+
+  @Column({ default: 0 })
+  @ApiProperty({
+    description: '댓글에 달린 좋아요 수',
+    example: 10,
+  })
+  likeCount: number; // 좋아요 수를 저장하는 필드 추가
 }

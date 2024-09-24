@@ -5,8 +5,5 @@ export class CreateCommentDto {
   comment_text: string;
 
   @IsNotEmpty()
-  user_id: number;
-
-  @IsNotEmpty()
   item_id: number;
 }
