@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
+import { GameDto } from 'src/game/dto/game.dto';
 import { Game } from 'src/game/game.entity';
+import { ItemDto } from 'src/item/dto/item.dto';
+import { ItemsResponseDto } from 'src/item/dto/itemsResponse.dto';
 import { Item } from 'src/item/item.entity';
 import { User } from 'src/user/user.entity';
 import { Repository } from 'typeorm';
@@ -48,7 +51,7 @@ export class GameService {
     return this.gamesRepository.findOneBy({ game_id: gameId });
   }
 
-  async findItemsByGameId(game_id: number): Promise<Item[]> {
+  async findItemsByGameId(game_id: number): Promise<ItemsResponseDto> {
     // Game 엔티티에서 game_id를 기준으로 Item들을 가져옵니다.
     const items = await this.itemsRepository
       .createQueryBuilder('item')
@@ -59,14 +62,19 @@ export class GameService {
     if (items.length === 0) {
       throw new Error('No items found for the given game_id');
     }
+    const [firstItem, secondItem] = items;
 
-    return items;
+    const response = new ItemsResponseDto();
+    response.firstItem = this.toItemDto(firstItem);
+    response.secondItem = this.toItemDto(secondItem);
+
+    return response;
   }
 
   async createGame(
     userId: number,
     createGameDto: CreateGameDto,
-  ): Promise<Game> {
+  ): Promise<void> {
     const { firstItemText, secondItemText } = createGameDto;
 
     // 1. 사용자 조회
@@ -93,13 +101,28 @@ export class GameService {
 
     game.items = [firstItem, secondItem];
     // 7. 게임의 아이템 목록 업데이트
-    return this.gamesRepository.save(game);
+    await this.gamesRepository.save(game);
   }
 
-  async findGamesByUserId(user_id: number): Promise<Game[]> {
-    return this.gamesRepository.find({
-      where: { user: { user_id } },
-    });
+  async findGamesByUserId(
+    user_id: number,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<GameDto[]> {
+    const offset = (page - 1) * limit;
+
+    // Game 엔티티에서 user_id에 따른 게임들을 페이지네이션하여 가져옵니다.
+    const games = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.items', 'item')
+      .where('game.user.user_id = :user_id', { user_id })
+      .orderBy('game.game_id', 'ASC')
+      .skip(offset)
+      .take(limit)
+      .getMany();
+
+    // Game 엔티티를 GameDto로 변환
+    return games.map((game) => this.toGameDto(game));
   }
 
   async deleteGame(user_id: number, game_id: number): Promise<void> {
@@ -112,5 +135,24 @@ export class GameService {
     }
 
     await this.gamesRepository.remove(game);
+  }
+
+  private toItemDto(item: Item): ItemDto {
+    const itemDto = new ItemDto();
+    itemDto.item_id = item.item_id;
+    itemDto.item_text = item.item_text;
+    itemDto.game_id = item.game.game_id;
+    itemDto.selected_count = item.comments ? item.comments.length : 0;
+    return itemDto;
+  }
+
+  private toGameDto(game: Game): GameDto {
+    const gameDto = new GameDto();
+    gameDto.game_id = game.game_id;
+    gameDto.first_item_text = game.items[0]?.item_text || '';
+    gameDto.second_item_text = game.items[1]?.item_text || '';
+    gameDto.created_at = game.created_at;
+    gameDto.user_id = game.user.user_id;
+    return gameDto;
   }
 }

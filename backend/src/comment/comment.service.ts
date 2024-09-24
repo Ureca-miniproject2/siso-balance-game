@@ -31,7 +31,7 @@ export class CommentService {
   async createComment(
     userId: number,
     createCommentDto: CreateCommentDto,
-  ): Promise<Comment> {
+  ): Promise<void> {
     const { comment_text, item_id } = createCommentDto;
 
     const comment = new Comment();
@@ -48,7 +48,7 @@ export class CommentService {
     comment.created_at = new Date();
     comment.updated_at = new Date();
 
-    return this.commentsRepository.save(comment);
+    await this.commentsRepository.save(comment);
   }
 
   async deleteComment(
