@@ -5,6 +5,7 @@ import App from './App.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 async function enableMocking() {
   if (import.meta.env.MODE !== 'development') {
@@ -27,6 +28,7 @@ enableMocking().then(() => {
           <GlobalStyle />
           <App />
         </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </StrictMode>,
   );

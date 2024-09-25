@@ -1,26 +1,21 @@
-import { useEffect, useState } from 'react';
 import * as S from './Item.styled';
 import { Link } from 'react-router-dom';
+import useGetGames from '../../hooks/queries/useGetGames';
 
 export default function Game() {
-  const [games, setGames] = useState([]);
-  useEffect(() => {
-    const a = async () => {
-      const res = await fetch('http://localhost:5173/api/item');
-      const data = await res.json();
-      console.log(data.data);
-      setGames(data.data);
-    };
-    a();
-  }, []);
+  const { data: games } = useGetGames();
 
   return (
     <S.ItemContainer>
-      {games.map((game) => {
+      {games?.map((game) => {
         return (
-          <Link key={game.id} to={`/game/${game.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <S.ItemList>{game.firstTitle}</S.ItemList>
-            <S.ItemList2>{game.secondTitle}</S.ItemList2>
+          <Link
+            key={game.game_id}
+            to={`/game/${game.game_id}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <S.ItemList>{game.items[0].item_text}</S.ItemList>
+            <S.ItemList2>{game.items[1].item_text}</S.ItemList2>
           </Link>
         );
       })}
