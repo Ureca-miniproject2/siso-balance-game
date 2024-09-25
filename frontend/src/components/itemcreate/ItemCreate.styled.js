@@ -9,16 +9,19 @@ export const ItemContainer = styled.div`
 `;
 
 export const TextBox = styled.textarea`
+  width: 100%;
   outline: none;
   border: none;
   background-color: transparent;
   text-align: center;
   justify-content: center;
+  align-items: center;
   font-size: 3.4rem;
   font-family: 'HSSantokki2-Regular';
   word-break: break-all;
   overflow: hidden;
   resize: none; // 크기 조정 비활성화
+  display: flex;
 `;
 
 export const ItemList = styled.div`
@@ -45,6 +48,7 @@ export const ItemList = styled.div`
 `;
 
 export const ItemList2 = styled.div`
+  vertical-align: middle;
   word-break: keep-all;
   width: 100%;
   padding: 5rem;
@@ -73,11 +77,11 @@ export const ButtonContainer = styled.div`
 
 export const Button = styled.button`
   width: 16rem;
-  height: 7rem;
+  height: 6.8rem;
   border-radius: 1.5rem;
   border: 0.2rem solid ${(props) => props.theme.colors.black};
-  font-size: 2.2rem;
-  font-family: 'Pretendard-semibold';
+  font-size: 2.1rem;
+  font-family: 'Pretendard-medium';
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme.colors.gray150};

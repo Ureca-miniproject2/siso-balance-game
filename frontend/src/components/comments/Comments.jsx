@@ -30,9 +30,9 @@ export default function Comments() {
         isBest={true}
         id="1"
         nickname="이지영"
-        time="23분 전"
-        like="3"
-        comment="뭘 먹을지 고민해보자 곱창 등갈비 족발 냠냠"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들겠어"
       />
     </>
   );

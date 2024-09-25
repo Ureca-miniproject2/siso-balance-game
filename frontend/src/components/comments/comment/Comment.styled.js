@@ -21,7 +21,7 @@ export const CommentContainer2 = styled.div`
 // `;
 
 export const BestButton = styled.div`
-  font-family: 'Pretendard-medium';
+  font-family: 'Pretendard-semibold';
   display: ${(props) => (props.isBest ? 'flex' : 'none')};
   width: 4.8rem;
   height: 2rem;
@@ -33,8 +33,8 @@ export const BestButton = styled.div`
   font-size: 1.2rem;
 `;
 export const BestButton2 = styled.div`
-  font-family: 'Pretendard-medium';
-  display: flex;
+  font-family: 'Pretendard-semibold';
+  display: ${(props) => (props.isBest ? 'flex' : 'none')};
   width: 4.8rem;
   height: 2rem;
   justify-content: center;
