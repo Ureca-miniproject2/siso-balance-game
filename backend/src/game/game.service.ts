@@ -51,7 +51,7 @@ export class GameService {
     return this.gamesRepository.findOneBy({ game_id: gameId });
   }
 
-  async findItemsByGameId(game_id: number): Promise<ItemsResponseDto> {
+  async findItemsByGameId(game_id: string): Promise<ItemsResponseDto> {
     // Game 엔티티에서 game_id를 기준으로 Item들을 가져옵니다.
     const items = await this.itemsRepository
       .createQueryBuilder('item')

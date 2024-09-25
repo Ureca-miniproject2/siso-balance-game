@@ -48,7 +48,7 @@ export class GameController {
     type: ItemsResponseDto,
   })
   async getItemsByGameId(
-    @Param('game_id') game_id: number,
+    @Param('game_id') game_id: string,
   ): Promise<ItemsResponseDto> {
     return this.gameService.findItemsByGameId(game_id);
   }
@@ -75,7 +75,7 @@ export class GameController {
   async findGamesByUserId(
     @Req() req: Request,
     @Query('page') page: number = 1, // 페이지 번호
-    @Query('limit') limit: number = 10, // 페이지당 항목 수
+    @Query('limit') limit: number = 10, // 페이지당 아이템 수
   ): Promise<GameDto[]> {
     const kakaoId = req.user.kakaoId;
     return this.gameService.findGamesByUserId(kakaoId, page, limit);
