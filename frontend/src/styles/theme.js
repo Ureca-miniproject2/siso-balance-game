@@ -11,5 +11,6 @@ export const theme = {
     black: '#080808',
     primaryBlue: '#4DDDFF',
     primaryGreen: '#8DF9BB',
+    primaryRed: '#F34343',
   },
 };

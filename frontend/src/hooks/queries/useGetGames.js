@@ -7,7 +7,7 @@ export default function useGetGames() {
   return useQuery({
     queryKey: [QUERY_KEYS.GAMES],
     queryFn: async () => {
-      const { data } = await getGames(1, 10);
+      const { data } = await getGames(1, 30);
       return data;
     },
   });

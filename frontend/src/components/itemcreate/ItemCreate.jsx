@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import * as S from './ItemCreate.styled';
 import { useState } from 'react';
+import useCreateGame from '../../hooks/queries/useCreateGame';
 
 export default function ItemCreate() {
-  const [text, setText] = useState('');
-
+  // const [firstItemText, setFirstItemText] = useState('');
+  // const [secondItemText, setSecondItemText] = useState('');
+  const { mutate } = useCreateGame();
   // 엔터키 입력 방지 핸들러
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -12,15 +14,9 @@ export default function ItemCreate() {
     }
   };
 
-  const handleChange = (event) => {
-    setText(event.target.value); // 상태 업데이트
-  };
-
   const textarea1Ref = useRef(null);
   const textarea2Ref = useRef(null);
   const handleInput = (event, textareaRef) => {
-    setText(event.target.value); // 상태 업데이트
-
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -38,6 +34,11 @@ export default function ItemCreate() {
   //   };
   // }, []);
 
+  const handleOnclick = () => {
+    const firstItemText = textarea1Ref.current.value;
+    const secondItemText = textarea2Ref.current.value;
+    mutate({ firstItemText, secondItemText });
+  };
   return (
     <>
       <S.ItemContainer>
@@ -65,7 +66,7 @@ export default function ItemCreate() {
         </S.ItemList2>
       </S.ItemContainer>
       <S.ButtonContainer>
-        <S.Button>등록하기</S.Button>
+        <S.Button onClick={handleOnclick}>등록하기</S.Button>
       </S.ButtonContainer>
     </>
   );
