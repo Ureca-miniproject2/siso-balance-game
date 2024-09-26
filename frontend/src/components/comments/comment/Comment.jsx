@@ -1,18 +1,27 @@
 import React from 'react';
+import { useState } from 'react';
 import * as S from './Comment.styled';
+import TrashIconImg from '../../common/icon/TrashIcon';
 // import timeAgo from '../../utils/timeAgo';
-import HeartIcon2 from '../../common/icon/HeartIcon';
+import HeartIconImg from '../../common/icon/HeartIcon';
 
 export default function Comment(props) {
+  const handleClick = () => {
+    props.setIsHeart(!props.isHeart); //하트 컬러 변경 함수 호출
+  };
+
   return (
     <S.CommentContainer isBest={props.isBest}>
       <S.TopContainer key={props.id}>
         <S.BestButton isBest={props.isBest}>BEST</S.BestButton>
         <S.NickNameStyle>{props.nickname}</S.NickNameStyle>
         <S.TimeStyle>{props.time}</S.TimeStyle>
+        <S.TrashIcon isTrash={props.isTrash}>
+          <TrashIconImg />
+        </S.TrashIcon>
         <S.LikeContainer>
-          <S.HeartIcon>
-            <HeartIcon2 fill="#C8C8C8" />
+          <S.HeartIcon onClick={handleClick} isHeart={props.isHeart}>
+            <HeartIconImg />
           </S.HeartIcon>
           <S.LikeStyle>{props.like}</S.LikeStyle>
         </S.LikeContainer>

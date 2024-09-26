@@ -32,6 +32,7 @@ export const BestButton = styled.div`
   margin-right: 0.8rem;
   font-size: 1.2rem;
 `;
+
 export const BestButton2 = styled.div`
   font-family: 'Pretendard-semibold';
   display: ${(props) => (props.isBest ? 'flex' : 'none')};
@@ -52,10 +53,25 @@ export const LikeContainer = styled.div`
 
 export const HeartIcon = styled.div`
   display: flex;
-  width: 1.9rem;
-  height: 1.9rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+
+  svg {
+    fill: ${(props) =>
+      props.isHeart
+        ? props.theme.colors.primaryRed
+        : props.theme.colors.gray350}; /* 호버 시 색상 변경 */
+
+    &:hover {
+      fill: ${(props) => props.theme.colors.primaryRed};
+    }
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s ease, fill 0.5s ease;
+  }
 `;
 
 export const TopContainer = styled.div`
@@ -84,6 +100,20 @@ export const TimeStyle = styled.div`
   font-family: 'Pretendard-semibold';
   font-size: 1.4rem;
   color: ${(props) => props.theme.colors.gray300};
+`;
+
+export const TrashIcon = styled.div`
+  margin-left: 1.4rem;
+  display: ${(props) => (props.isTrash ? 'flex' : 'none')};
+  cursor: pointer;
+  svg {
+    stroke: ${(props) => props.theme.colors.gray300};
+    &:hover {
+      fill: ${(props) => props.theme.colors.gray350};
+      stroke: ${(props) => props.theme.colors.gray400};
+      transition: transform 0.5s ease, fill 0.5s ease;
+    }
+  }
 `;
 
 export const LikeStyle = styled.div`
