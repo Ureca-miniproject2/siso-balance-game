@@ -4,7 +4,7 @@ import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('comment')
 @ApiTags('댓글 api')
@@ -12,6 +12,7 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiCookieAuth('accessToken')
   @Post()
   @ApiOperation({ summary: '아이템에 댓글을 입력합니다.' })
   @ApiBody({ type: CreateCommentDto })
@@ -25,6 +26,7 @@ export class CommentController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete()
+  @ApiCookieAuth('accessToken')
   @ApiOperation({ summary: '아이템에 댓글을 삭제합니다.' })
   async deleteComment(
     @Req() req: Request,

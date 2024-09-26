@@ -7,6 +7,7 @@ export const setupSwagger = (app: INestApplication): void => {
     .setDescription('The Nestjs API description')
     .setVersion('1.0')
     .addTag('nestjs')
+    .addCookieAuth('accessToken') // 이 부분이 핵심입니다
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);

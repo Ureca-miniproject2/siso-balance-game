@@ -16,6 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import {
   ApiBody,
+  ApiCookieAuth,
   ApiCreatedResponse,
   ApiOperation,
   ApiTags,
@@ -59,6 +60,7 @@ export class GameController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiCookieAuth('accessToken')
   @ApiOperation({ summary: '자신의 게임을 생성합니다.' })
   @ApiBody({
     type: CreateGameDto,
@@ -74,6 +76,7 @@ export class GameController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiCookieAuth('accessToken')
   @Get('user')
   @ApiOperation({ summary: '사용자가 만든 게임들을 가져옵니다.' })
   @ApiCreatedResponse({
@@ -90,6 +93,7 @@ export class GameController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiCookieAuth('accessToken')
   @Delete(':game_id')
   @ApiOperation({ summary: '자신의 게임을 삭제합니다.' })
   async deleteGame(
