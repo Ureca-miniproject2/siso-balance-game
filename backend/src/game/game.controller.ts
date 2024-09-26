@@ -14,7 +14,12 @@ import { GameService } from './game.service';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { GameResponseDto } from 'src/game/dto/gameResponse.dto';
 import { ItemsResponseDto } from 'src/item/dto/itemsResponse.dto';
 import { GameDto } from 'src/game/dto/game.dto';
@@ -54,8 +59,11 @@ export class GameController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Post()
   @ApiOperation({ summary: '자신의 게임을 생성합니다.' })
+  @ApiBody({
+    type: CreateGameDto,
+  })
+  @Post()
   async createGame(
     @Req() req: Request,
     @Body() createGameDto: CreateGameDto,

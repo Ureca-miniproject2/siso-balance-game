@@ -4,7 +4,7 @@ import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('comment')
 @ApiTags('댓글 api')
@@ -14,6 +14,7 @@ export class CommentController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   @ApiOperation({ summary: '아이템에 댓글을 입력합니다.' })
+  @ApiBody({ type: CreateCommentDto })
   async createComment(
     @Req() req: Request,
     @Body() createCommentDto: CreateCommentDto,
