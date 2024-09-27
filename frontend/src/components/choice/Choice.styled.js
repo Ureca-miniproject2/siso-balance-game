@@ -6,7 +6,8 @@ export const ItemContainer = styled.div`
   display: table;
   display: flex;
   font-family: 'HSSantokki2-Regular';
-  margin-top: 3.2rem;
+  margin-top: 2rem;
+
   grid-template-columns: repeat(3, 1fr); /* 3개의 열 생성 */
 `;
 
