@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Choice from '../../components/choice/Choice';
 import CommentInput from '../../components/commentInput/CommentInput.jsx';
@@ -22,12 +22,12 @@ export default function GamePage() {
       <Choice game={gameData} />
       <S.Container>
         <S.SmallContainer>
-          <CommentInput />
           <Comments />
+          <CommentInput />
         </S.SmallContainer>
         <S.SmallContainer>
-          <CommentInput />
           <Comments />
+          <CommentInput />
         </S.SmallContainer>
       </S.Container>
     </>
