@@ -21,12 +21,14 @@ export default function GamePage() {
     <>
       <Choice game={gameData} />
       <S.Container>
-        <Comments />
-        <Comments />
-      </S.Container>
-      <S.Container>
-        <CommentInput />
-        <CommentInput />
+        <S.SmallContainer>
+          <CommentInput />
+          <Comments />
+        </S.SmallContainer>
+        <S.SmallContainer>
+          <CommentInput />
+          <Comments />
+        </S.SmallContainer>
       </S.Container>
     </>
   );

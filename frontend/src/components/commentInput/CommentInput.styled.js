@@ -2,14 +2,17 @@ import styled from 'styled-components';
 
 export const InputContainer = styled.div`
   display: flex;
-  margin-top: 24rem;
+  bottom: 4rem;
   align-items: center;
-  width: 100%;
+  width: 32%;
+  position: fixed;
 `;
 
 export const TextInput = styled.input`
-  width: 81%;
+  position: fixed;
+  width: 32%;
   height: 5.2rem;
+  border: 0.2rem solid ${(props) => props.theme.colors.gray400};
   border-radius: 1rem;
   font-size: 1.6rem;
   font-family: 'Pretendard-medium';
@@ -18,12 +21,18 @@ export const TextInput = styled.input`
 `;
 
 export const ButtonClick = styled.button`
+  position: fixed;
   width: 5.2rem;
   height: 5.2rem;
-  margin-left: 2rem;
+  border: 0.2rem solid ${(props) => props.theme.colors.gray400};
+  margin-left: 52.6rem;
   border-radius: 1rem;
   background-color: ${(props) =>
     props.isActive ? props.theme.colors.black : props.theme.colors.gray350};
+
+  svg {
+    stroke: ${(props) => (props.isActive ? 'white' : props.theme.colors.black)};
+  }
 
   ${(props) =>
     props.isActive &&
