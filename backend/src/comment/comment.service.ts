@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/comment/comment.entity';
 import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
@@ -12,6 +12,10 @@ export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private commentsRepository: Repository<Comment>,
+    @InjectRepository(Item)
+    private itemsRepository: Repository<Item>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
   async findCommentsByItemId(
@@ -70,20 +74,26 @@ export class CommentService {
   ): Promise<void> {
     const { comment_text, item_id } = createCommentDto;
 
+    // 데이터베이스에서 해당 Item과 User를 조회
+    const item = await this.itemsRepository.findOne({ where: { item_id } });
+    if (!item) {
+      throw new NotFoundException(`아이템을 찾을 수 없습니다.`);
+    }
+
+    const user = await this.usersRepository.findOne({
+      where: { user_id: userId },
+    });
+    if (!user) {
+      throw new NotFoundException(`유저를 찾을 수 없습니다.`);
+    }
+
+    // 새로운 Comment 객체 생성 및 필요한 필드 설정
     const comment = new Comment();
-    const item = new Item();
-    const user = new User();
-
-    item.item_id = item_id;
     comment.item = item;
-    user.user_id = userId;
-
     comment.user = user;
     comment.comment_text = comment_text;
 
-    comment.created_at = new Date();
-    comment.updated_at = new Date();
-
+    // 생성 및 수정 시간 자동 설정 (CreateDateColumn과 UpdateDateColumn이 자동 처리)
     await this.commentsRepository.save(comment);
   }
 
