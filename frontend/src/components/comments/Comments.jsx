@@ -37,6 +37,94 @@ export default function Comments() {
         like="13"
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
+      <Comment
+        isBest={true}
+        isTrash={false}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={false}
+        isTrash={false}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={true}
+        isTrash={true}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={true}
+        isTrash={true}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={true}
+        isTrash={true}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={true}
+        isTrash={true}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={true}
+        isTrash={true}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
+      <Comment
+        isBest={true}
+        isTrash={true}
+        isHeart={isHeart}
+        setIsHeart={setIsHeart}
+        id="1"
+        nickname="이지영"
+        time="2분 전"
+        like="13"
+        comment="인싸를 만나서 나만 만나는 아싸로 만들래"
+      />
     </>
   );
 }

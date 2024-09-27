@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CommentContainer = styled.div`
-  width: 50%;
+  width: 100%;
   background-color: ${(props) =>
     props.isBest ? props.theme.colors.gray150 : props.theme.colors.gray100};
   border-right: 0.1rem solid ${(props) => props.theme.colors.gray200};
@@ -9,7 +9,7 @@ export const CommentContainer = styled.div`
 `;
 
 export const CommentContainer2 = styled.div`
-  width: 50%;
+  width: 100%;
   background-color: ${(props) =>
     props.isBest ? props.theme.colors.gray150 : props.theme.colors.gray100};
   border-left: 0.1rem solid ${(props) => props.theme.colors.gray200};
