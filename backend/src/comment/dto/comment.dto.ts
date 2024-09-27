@@ -25,4 +25,8 @@ export class CommentDto {
   @IsNotEmpty()
   @ApiProperty({ description: 'The number of likes the comment has received' })
   likeCount: number;
+
+  @IsNotEmpty()
+  @ApiProperty({ description: 'Whether the comment is the best comment' })
+  isBest: boolean;
 }
