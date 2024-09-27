@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   font-size: 1.6rem;
   font-weight: 400;
   padding-bottom: 1.4rem;
-  margin-top: 2.7rem;
+  margin-top: 1.4rem;
   border-bottom: 2px solid #000;
 `;
 
