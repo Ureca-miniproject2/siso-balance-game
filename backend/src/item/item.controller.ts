@@ -23,4 +23,16 @@ export class ItemController {
   ): Promise<Comment[]> {
     return this.commentService.findCommentsByItemId(item_id, page, limit);
   }
+
+  @Get(':item_id/comments/best')
+  @ApiOperation({ summary: '아이템의 베스트 댓글들을 가져옵니다.' })
+  @ApiCreatedResponse({
+    description: '아이템의 베스트 댓글들을 가져옵니다.',
+    type: [CommentDto],
+  })
+  async getBestCommentsByItemId(
+    @Param('item_id') item_id: string,
+  ): Promise<Comment[]> {
+    return this.commentService.findBestCommentsByItemId(item_id);
+  }
 }

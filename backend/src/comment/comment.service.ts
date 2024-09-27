@@ -23,28 +23,7 @@ export class CommentService {
     page: number,
     limit: number,
   ): Promise<Comment[]> {
-    // 상위 3개의 댓글을 likeCount 순으로 정렬하여 가져오기
-    const topComments = await this.commentsRepository.find({
-      where: { item: { item_id } },
-      select: [
-        'comment_id',
-        'comment_text',
-        'created_at',
-        'updated_at',
-        'likeCount',
-      ],
-      relations: ['user'],
-      order: { likeCount: 'DESC' },
-      take: 3,
-    });
-
-    // 상위 3개의 댓글에 isBest를 true로 설정
-    topComments.forEach((comment) => {
-      comment['isBest'] = true;
-    });
-
-    // 나머지 댓글들을 최신순으로 가져오기 (페이지네이션 적용)
-    const otherComments = await this.commentsRepository.find({
+    const comments = await this.commentsRepository.find({
       where: { item: { item_id } },
       select: [
         'comment_id',
@@ -60,12 +39,36 @@ export class CommentService {
     });
 
     // 나머지 댓글에 isBest를 false로 설정
-    otherComments.forEach((comment) => {
+    comments.forEach((comment) => {
       comment['isBest'] = false;
     });
 
     // 상위 3개 댓글과 나머지 댓글들을 합치기
-    return [...topComments, ...otherComments];
+    return comments;
+  }
+
+  async findBestCommentsByItemId(item_id: string): Promise<Comment[]> {
+    // 상위 3개의 댓글을 likeCount 순으로 정렬하여 가져오기
+    const topComments = await this.commentsRepository.find({
+      where: { item: { item_id } },
+      select: [
+        'comment_id',
+        'comment_text',
+        'created_at',
+        'updated_at',
+        'likeCount',
+      ],
+      relations: ['user'],
+      order: { likeCount: 'DESC' },
+      take: 2,
+    });
+
+    // 상위 3개의 댓글에 isBest를 true로 설정
+    topComments.forEach((comment) => {
+      comment['isBest'] = true;
+    });
+
+    return topComments;
   }
 
   async createComment(
