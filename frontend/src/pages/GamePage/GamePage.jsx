@@ -7,7 +7,6 @@ import * as S from './GamePage.styled';
 
 export default function GamePage() {
   const { id } = useParams();
-
   const { data } = useGetGameItems(id);
   return (
     <>
@@ -18,7 +17,7 @@ export default function GamePage() {
           <CommentInput />
         </S.SmallContainer>
         <S.SmallContainer>
-          <Comments />
+          <Comments bestButtonColor={true} />
           <CommentInput />
         </S.SmallContainer>
       </S.Container>
