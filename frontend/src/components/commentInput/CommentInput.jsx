@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from './CommentInput.styled';
 import ArrowIcon from '../common/icon/ArrowIcon';
 import { useState } from 'react';
