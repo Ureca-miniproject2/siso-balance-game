@@ -8,14 +8,6 @@ export const CommentContainer = styled.div`
   padding: 2.5rem;
 `;
 
-export const CommentContainer2 = styled.div`
-  width: 100%;
-  background-color: ${(props) =>
-    props.isBest ? props.theme.colors.gray150 : props.theme.colors.gray100};
-  border-left: 0.1rem solid ${(props) => props.theme.colors.gray200};
-  padding: 2.5rem;
-`;
-
 export const BestButton = styled.div`
   font-family: 'Pretendard-semibold';
   display: ${(props) => (props.isBest ? 'flex' : 'none')};
@@ -23,20 +15,8 @@ export const BestButton = styled.div`
   height: 2rem;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.primaryBlue};
-  border-radius: 10rem;
-  margin-right: 0.8rem;
-  font-size: 1.2rem;
-`;
-
-export const BestButton2 = styled.div`
-  font-family: 'Pretendard-semibold';
-  display: ${(props) => (props.isBest ? 'flex' : 'none')};
-  width: 4.8rem;
-  height: 2rem;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) => props.theme.colors.primaryGreen};
+  background-color: ${(props) =>
+    props.bestButtonColor ? props.theme.colors.primaryGreen : props.theme.colors.primaryBlue};
   border-radius: 10rem;
   margin-right: 0.8rem;
   font-size: 1.2rem;

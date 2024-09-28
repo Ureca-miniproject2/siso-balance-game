@@ -10,7 +10,7 @@ export const theme = {
 
     black: '#080808',
     primaryBlue: '#4DDDFF',
-    primaryGreen: '#8DF9BB',
+    primaryGreen: '#64F0A0',
     primaryRed: '#F34343',
   },
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 // import HeartIcon from '../common/icon/HeartIcon';
 import Comment from '../comments/comment/Comment';
 
-export default function Comments() {
+export default function Comments({ bestButtonColor }) {
   const [isHeart, setIsHeart] = useState(false);
   const [comment, SetComment] = useState([]);
   const [comment2, setComment2] = useState([]);
@@ -30,6 +30,7 @@ export default function Comments() {
         isBest={true}
         isTrash={true}
         isHeart={isHeart}
+        bestButtonColor={bestButtonColor}
         setIsHeart={setIsHeart}
         id="1"
         nickname="이지영"
@@ -40,6 +41,7 @@ export default function Comments() {
       <Comment
         isBest={true}
         isTrash={false}
+        bestButtonColor={bestButtonColor}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"

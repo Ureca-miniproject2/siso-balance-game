@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ItemContainer = styled.div`
   width: 100%;
-  height: 30vh;
+  height: 34vh;
   display: table;
   display: flex;
   font-family: 'HSSantokki2-Regular';

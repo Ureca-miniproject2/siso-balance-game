@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import * as S from './Comment.styled';
 import TrashIconImg from '../../common/icon/TrashIcon';
-// import timeAgo from '../../utils/timeAgo';
 import HeartIconImg from '../../common/icon/HeartIcon';
 
 export default function Comment(props) {
@@ -13,7 +12,9 @@ export default function Comment(props) {
   return (
     <S.CommentContainer isBest={props.isBest}>
       <S.TopContainer key={props.id}>
-        <S.BestButton isBest={props.isBest}>BEST</S.BestButton>
+        <S.BestButton isBest={props.isBest} bestButtonColor={props.bestButtonColor}>
+          BEST
+        </S.BestButton>
         <S.NickNameStyle>{props.nickname}</S.NickNameStyle>
         <S.TimeStyle>{props.time}</S.TimeStyle>
         <S.TrashIcon isTrash={props.isTrash}>
