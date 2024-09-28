@@ -1,10 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import getGames from '../../apis/getGames';
 import QUERY_KEYS from '../../constants/queryKeys';
 
 export default function useGetGames() {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GAMES],
     queryFn: async ({ pageParam = 0 }) => {
       const response = await getGames(pageParam, 10);

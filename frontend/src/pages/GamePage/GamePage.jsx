@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Choice from '../../components/choice/Choice';
 import CommentInput from '../../components/commentInput/CommentInput.jsx';
@@ -9,7 +8,7 @@ import * as S from './GamePage.styled';
 export default function GamePage() {
   const { id } = useParams();
 
-  const { data } = useGetGameItems(id)
+  const { data } = useGetGameItems(id);
   return (
     <>
       <Choice game={data} />

@@ -18,7 +18,7 @@ export class ItemController {
   })
   async getCommentsByItemId(
     @Param('item_id') item_id: string,
-    @Query('page') page: number = 1, // 페이지 번호
+    @Query('page') page: number = 0, // 페이지 번호
     @Query('limit') limit: number = 10,
   ): Promise<Comment[]> {
     return this.commentService.findCommentsByItemId(item_id, page, limit);

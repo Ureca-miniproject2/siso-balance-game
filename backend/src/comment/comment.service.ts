@@ -33,7 +33,7 @@ export class CommentService {
         'likeCount',
       ],
       relations: ['user'],
-      skip: (page - 1) * limit,
+      skip: page * limit,
       take: limit,
       order: { created_at: 'DESC' },
     });

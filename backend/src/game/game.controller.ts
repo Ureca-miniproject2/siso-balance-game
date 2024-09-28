@@ -38,7 +38,7 @@ export class GameController {
     type: GameResponseDto,
   })
   async findAll(
-    @Query('page') page: number = 1, // 페이지 번호
+    @Query('page') page: number = 0, // 페이지 번호
     @Query('limit') limit: number = 10, // 페이지당 항목 수
   ): Promise<GameResponseDto> {
     this.logger.log('Handling Find All Games request');
@@ -85,7 +85,7 @@ export class GameController {
   })
   async findGamesByUserId(
     @Req() req: Request,
-    @Query('page') page: number = 1, // 페이지 번호
+    @Query('page') page: number = 0, // 페이지 번호
     @Query('limit') limit: number = 10, // 페이지당 아이템 수
   ): Promise<GameDto[]> {
     const kakaoId = req.user.kakaoId;

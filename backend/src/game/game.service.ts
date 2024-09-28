@@ -21,13 +21,13 @@ export class GameService {
   ) {}
 
   async findAll({
-    page = 1,
+    page = 0,
     limit = 10,
   }: {
     page: number;
     limit: number;
   }): Promise<any[]> {
-    const offset = (page - 1) * limit;
+    const offset = page * limit;
 
     // Game과 관련된 Item들을 JOIN
     const games = await this.gamesRepository
@@ -106,10 +106,10 @@ export class GameService {
 
   async findGamesByUserId(
     user_id: string,
-    page: number = 1,
+    page: number = 0,
     limit: number = 10,
   ): Promise<GameDto[]> {
-    const offset = (page - 1) * limit;
+    const offset = page * limit;
 
     // Game 엔티티에서 user_id에 따른 게임들을 페이지네이션하여 가져옵니다.
     const games = await this.gamesRepository
