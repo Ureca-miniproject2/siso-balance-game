@@ -1,8 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
 import * as S from './Comment.styled';
 import TrashIconImg from '../../common/icon/TrashIcon';
 import HeartIconImg from '../../common/icon/HeartIcon';
+import timeAgo from '../../../utils/timeAgo';
 
 export default function Comment(props) {
   const handleClick = () => {
@@ -16,7 +15,7 @@ export default function Comment(props) {
           BEST
         </S.BestButton>
         <S.NickNameStyle>{props.nickname}</S.NickNameStyle>
-        <S.TimeStyle>{props.time}</S.TimeStyle>
+        <S.TimeStyle>{timeAgo(new Date(props.time))}</S.TimeStyle>
         <S.TrashIcon isTrash={props.isTrash}>
           <TrashIconImg />
         </S.TrashIcon>
