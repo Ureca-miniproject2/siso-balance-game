@@ -8,6 +8,7 @@ import { GameModule } from './game/game.module';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
 import { UserModule } from './user/user.module';
+import { SelectedItemModule } from './selected-item/selected-item.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UserModule } from './user/user.module';
     LikeModule,
     CommentModule,
     UserModule,
+    SelectedItemModule,
   ],
   controllers: [],
   providers: [],
