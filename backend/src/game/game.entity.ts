@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Item } from 'src/item/item.entity';
+import { SelectedItem } from 'src/selected-item/selected-item.entity';
 import { User } from 'src/user/user.entity';
 import {
   Entity,
@@ -37,4 +38,11 @@ export class Game {
     type: () => [Item],
   })
   items: Item[];
+
+  @OneToMany(() => SelectedItem, (selectedItem) => selectedItem.game)
+  @ApiProperty({
+    description: '게임에서 선택된 아이템들',
+    type: () => [SelectedItem],
+  })
+  selectedItems: SelectedItem[];
 }

@@ -26,7 +26,7 @@ export class LikeController {
   @Post(':comment_id')
   @ApiCookieAuth('accessToken')
   @ApiOperation({ summary: '댓글 좋아요' })
-  @ApiResponse({ status: 201, description: '정상' })
+  @ApiResponse({ status: 200, description: '정상' })
   @ApiResponse({ status: 404, description: '유저 또는 댓글이 없습니다.' })
   @ApiResponse({
     status: 409,

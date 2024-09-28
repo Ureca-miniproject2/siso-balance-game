@@ -1,5 +1,5 @@
-import Item from '../components/item/Item';
+import Items from '../components/item/Items';
 
 export default function MainPage() {
-  return <Item />;
+  return <Items />;
 }

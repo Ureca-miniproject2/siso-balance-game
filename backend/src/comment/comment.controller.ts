@@ -4,7 +4,13 @@ import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
-import { ApiBody, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('comment')
 @ApiTags('댓글 api')
@@ -15,6 +21,14 @@ export class CommentController {
   @ApiCookieAuth('accessToken')
   @Post()
   @ApiOperation({ summary: '아이템에 댓글을 입력합니다.' })
+  @ApiResponse({
+    status: 200,
+    description: '댓글이 성공적으로 입력되었습니다.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: '아이템 또는 유저를 찾을 수 없습니다.',
+  })
   @ApiBody({ type: CreateCommentDto })
   async createComment(
     @Req() req: Request,

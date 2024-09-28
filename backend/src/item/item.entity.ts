@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Comment } from 'src/comment/comment.entity';
 import { Game } from 'src/game/game.entity';
+import { SelectedItem } from 'src/selected-item/selected-item.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -47,4 +48,11 @@ export class Item {
     example: 1,
   })
   selected_count: number;
+
+  @OneToMany(() => SelectedItem, (selectedItem) => selectedItem.item)
+  @ApiProperty({
+    description: '아이템이 선택된 기록들',
+    type: () => [SelectedItem],
+  })
+  selectedItems: SelectedItem[];
 }
