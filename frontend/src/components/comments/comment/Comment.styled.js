@@ -16,10 +16,6 @@ export const CommentContainer2 = styled.div`
   padding: 2.5rem;
 `;
 
-// export const Container = styled.div`
-//   display: flex;
-// `;
-
 export const BestButton = styled.div`
   font-family: 'Pretendard-semibold';
   display: ${(props) => (props.isBest ? 'flex' : 'none')};

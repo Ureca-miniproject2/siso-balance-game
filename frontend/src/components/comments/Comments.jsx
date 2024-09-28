@@ -60,8 +60,8 @@ export default function Comments() {
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
       <Comment
-        isBest={true}
-        isTrash={true}
+        isBest={false}
+        isTrash={false}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"
@@ -71,8 +71,8 @@ export default function Comments() {
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
       <Comment
-        isBest={true}
-        isTrash={true}
+        isBest={false}
+        isTrash={false}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"
@@ -82,8 +82,8 @@ export default function Comments() {
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
       <Comment
-        isBest={true}
-        isTrash={true}
+        isBest={false}
+        isTrash={false}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"
@@ -93,8 +93,8 @@ export default function Comments() {
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
       <Comment
-        isBest={true}
-        isTrash={true}
+        isBest={false}
+        isTrash={false}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"
@@ -104,8 +104,8 @@ export default function Comments() {
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
       <Comment
-        isBest={true}
-        isTrash={true}
+        isBest={false}
+        isTrash={false}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"
@@ -115,8 +115,8 @@ export default function Comments() {
         comment="인싸를 만나서 나만 만나는 아싸로 만들래"
       />
       <Comment
-        isBest={true}
-        isTrash={true}
+        isBest={false}
+        isTrash={false}
         isHeart={isHeart}
         setIsHeart={setIsHeart}
         id="1"
