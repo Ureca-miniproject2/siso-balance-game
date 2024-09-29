@@ -15,11 +15,11 @@ export default function GamePage() {
       <S.Container>
         <S.SmallContainer>
           <Comments itemId={data?.firstItem.item_id} bestButtonColor={false} />
-          <CommentInput />
+          <CommentInput itemId={data?.firstItem.item_id} />
         </S.SmallContainer>
         <S.SmallContainer>
           <Comments itemId={data?.secondItem.item_id} bestButtonColor={true} />
-          <CommentInput />
+          <CommentInput itemId={data?.secondItem.item_id} />
         </S.SmallContainer>
       </S.Container>
     </>

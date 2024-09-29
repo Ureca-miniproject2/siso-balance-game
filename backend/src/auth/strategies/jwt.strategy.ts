@@ -16,6 +16,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload) {
-    return { kakaoId: payload.kakaoId };
+    return { kakaoId: payload.userId };
   }
 }
