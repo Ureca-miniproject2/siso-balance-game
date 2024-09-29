@@ -1,11 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import * as S from './ItemCreate.styled';
-import { useState } from 'react';
 import useCreateGame from '../../hooks/queries/useCreateGame';
 
 export default function ItemCreate() {
-  // const [firstItemText, setFirstItemText] = useState('');
-  // const [secondItemText, setSecondItemText] = useState('');
   const { mutate } = useCreateGame();
   // 엔터키 입력 방지 핸들러
   const handleKeyDown = (event) => {
@@ -22,17 +19,6 @@ export default function ItemCreate() {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
-  // useEffect(() => {
-  //   const textarea = textareaRef.current;
-  //   if (textarea) {
-  //     textarea.addEventListener('input', handleInput);
-  //   }
-  //   return () => {
-  //     if (textarea) {
-  //       textarea.removeEventListener('input', handleInput);
-  //     }
-  //   };
-  // }, []);
 
   const handleOnclick = () => {
     const firstItemText = textarea1Ref.current.value;
