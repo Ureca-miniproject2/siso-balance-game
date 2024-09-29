@@ -1,6 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/comment/comment.entity';
+import { CommentDto } from 'src/comment/dto/comment.dto';
 import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
 import { Item } from 'src/item/item.entity';
@@ -20,34 +25,63 @@ export class CommentService {
 
   async findCommentsByItemId(
     item_id: string,
+    kakao_id: string | null,
     page: number,
     limit: number,
-  ): Promise<Comment[]> {
+  ): Promise<CommentDto[]> {
+    if (kakao_id) {
+      const user = await this.usersRepository.findOneBy({ user_id: kakao_id });
+      if (!user) {
+        throw new UnauthorizedException('유효하지 않은 사용자입니다.');
+      }
+    }
+
+    // 댓글 가져오기
     const comments = await this.commentsRepository.find({
       where: { item: { item_id } },
-      select: [
-        'comment_id',
-        'comment_text',
-        'created_at',
-        'updated_at',
-        'likeCount',
-      ],
-      relations: ['user'],
-      skip: page * limit,
+      relations: ['user', 'likes'],
+      skip: (page - 1) * limit,
       take: limit,
       order: { created_at: 'DESC' },
     });
 
-    // 나머지 댓글에 isBest를 false로 설정
-    comments.forEach((comment) => {
-      comment['isBest'] = false;
+    // 각 댓글이 사용자가 좋아요를 눌렀는지 여부 확인
+    const commentDtos = comments.map((comment) => {
+      const baseDto = {
+        comment_id: comment.comment_id,
+        comment_text: comment.comment_text,
+        created_at: comment.created_at,
+        updated_at: comment.updated_at,
+        user: comment.user,
+        likeCount: comment.likeCount,
+        isLikedByUser: false,
+      };
+
+      if (kakao_id) {
+        return {
+          ...baseDto,
+          isLikedByUser: comment.likes.some(
+            (like) => like.user.user_id === kakao_id,
+          ),
+        };
+      } else {
+        return baseDto; // 로그인하지 않은 경우 isLikedByUser 필드 제외
+      }
     });
 
-    // 상위 3개 댓글과 나머지 댓글들을 합치기
-    return comments;
+    return commentDtos;
   }
 
-  async findBestCommentsByItemId(item_id: string): Promise<Comment[]> {
+  async findBestCommentsByItemId(
+    item_id: string,
+    kakao_id: string | null,
+  ): Promise<CommentDto[]> {
+    if (kakao_id) {
+      const user = await this.usersRepository.findOneBy({ user_id: kakao_id });
+      if (!user) {
+        throw new UnauthorizedException('유효하지 않은 사용자입니다.');
+      }
+    }
     // 상위 3개의 댓글을 likeCount 순으로 정렬하여 가져오기
     const topComments = await this.commentsRepository.find({
       where: { item: { item_id } },
@@ -64,11 +98,30 @@ export class CommentService {
     });
 
     // 상위 3개의 댓글에 isBest를 true로 설정
-    topComments.forEach((comment) => {
-      comment['isBest'] = true;
+    const topCommentDtos = topComments.map((comment) => {
+      const baseDto = {
+        comment_id: comment.comment_id,
+        comment_text: comment.comment_text,
+        created_at: comment.created_at,
+        updated_at: comment.updated_at,
+        user: comment.user,
+        likeCount: comment.likeCount,
+        isLikedByUser: false,
+      };
+
+      if (kakao_id) {
+        return {
+          ...baseDto,
+          isLikedByUser: comment.likes.some(
+            (like) => like.user.user_id === kakao_id,
+          ),
+        };
+      } else {
+        return baseDto; // 로그인하지 않은 경우 isLikedByUser 필드 제외
+      }
     });
 
-    return topComments;
+    return topCommentDtos;
   }
 
   async createComment(
