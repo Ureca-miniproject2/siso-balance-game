@@ -9,14 +9,11 @@ export default function Comment(props) {
   const { mutate: bestCommentLikeMutate } = useBestCommentLike(props.commentId, props.itemId);
   const { mutate: commentLikeMutate } = useCommentLike(props.commentId, props.itemId);
   const handleClick = () => {
-    console.log('click');
     if (props.isBest) {
       bestCommentLikeMutate({ isHeart: props.isHeart });
-      console.log('best');
       return;
     } else {
       commentLikeMutate({ isHeart: props.isHeart });
-      console.log('not best');
       return;
     }
   };

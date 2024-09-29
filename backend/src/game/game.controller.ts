@@ -89,7 +89,7 @@ export class GameController {
     @Query('limit') limit: number = 10, // 페이지당 아이템 수
   ): Promise<GameDto[]> {
     const kakaoId = req.user.kakaoId;
-    return this.gameService.findGamesByUserId(kakaoId, page, limit);
+    return await this.gameService.findGamesByUserId(kakaoId, page, limit);
   }
 
   @UseGuards(AuthGuard('jwt'))
