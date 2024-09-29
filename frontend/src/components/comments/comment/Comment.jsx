@@ -2,10 +2,12 @@ import * as S from './Comment.styled';
 import TrashIconImg from '../../common/icon/TrashIcon';
 import HeartIconImg from '../../common/icon/HeartIcon';
 import timeAgo from '../../../utils/timeAgo';
+import { useState } from 'react';
 
 export default function Comment(props) {
+  const [isHeart, setIsHeart] = useState(props.isHeart);
   const handleClick = () => {
-    props.setIsHeart(!props.isHeart); //하트 컬러 변경 함수 호출
+    setIsHeart((prev) => !prev); //하트 컬러 변경 함수 호출
   };
 
   return (
@@ -20,7 +22,7 @@ export default function Comment(props) {
           <TrashIconImg />
         </S.TrashIcon>
         <S.LikeContainer>
-          <S.HeartIcon onClick={handleClick} isHeart={props.isHeart}>
+          <S.HeartIcon onClick={handleClick} isHeart={isHeart}>
             <HeartIconImg />
           </S.HeartIcon>
           <S.LikeStyle>{props.like}</S.LikeStyle>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Comment from '../comments/comment/Comment';
 import useGetBestComments from '../../hooks/queries/useGetBestComments';
 import useGetComments from '../../hooks/queries/useGetComments';
@@ -21,7 +21,6 @@ export default function Comments(props) {
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const [isHeart, setIsHeart] = useState(false);
   return (
     <>
       {bestComments?.map((comment) => (
@@ -29,8 +28,7 @@ export default function Comments(props) {
           key={comment.comment_id}
           isBest={true}
           isTrash={true}
-          isHeart={isHeart}
-          setIsHeart={setIsHeart}
+          isHeart={comment.isLikedByUser}
           bestButtonColor={bestButtonColor}
           id={comment.comment_id}
           nickname={comment.user.username}
@@ -45,8 +43,7 @@ export default function Comments(props) {
             key={comment.comment_id}
             isBest={false}
             isTrash={false}
-            isHeart={isHeart}
-            setIsHeart={setIsHeart}
+            isHeart={comment.isLikedByUser}
             bestButtonColor={bestButtonColor}
             id={comment.comment_id}
             nickname={comment.user.username}
