@@ -112,16 +112,16 @@ export class GameService {
     const offset = page * limit;
 
     // Game 엔티티에서 user_id에 따른 게임들을 페이지네이션하여 가져옵니다.
-    const games = await this.gamesRepository
-      .createQueryBuilder('game')
-      .leftJoinAndSelect('game.items', 'item')
-      .where('game.user.user_id = :user_id', { user_id })
-      .orderBy('game.game_id', 'ASC')
-      .skip(offset)
-      .take(limit)
-      .getMany();
+    const games = await this.gamesRepository.find({
+      where: { user: { user_id } },
+      order: { created_at: 'DESC' },
+      relations: ['items'],
+      skip: offset,
+      take: limit,
+    });
 
     // Game 엔티티를 GameDto로 변환
+    console.log(games);
     return games.map((game) => this.toGameDto(game));
   }
 
@@ -152,7 +152,7 @@ export class GameService {
     gameDto.first_item_text = game.items[0]?.item_text || '';
     gameDto.second_item_text = game.items[1]?.item_text || '';
     gameDto.created_at = game.created_at;
-    gameDto.user_id = game.user.user_id;
+    gameDto.user_id = game.user?.user_id;
     return gameDto;
   }
 }
