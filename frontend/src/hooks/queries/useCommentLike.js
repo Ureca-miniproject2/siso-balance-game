@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 export default function useCommentLike(commentId, itemId) {
   const queryClient = useQueryClient();
-  console.log(itemId, typeof itemId);
 
   const itemIdNumber = parseInt(itemId);
   return useMutation({
@@ -26,7 +25,6 @@ export default function useCommentLike(commentId, itemId) {
       ]);
 
       queryClient.setQueryData([QUERY_KEYS.COMMENTS, { itemId: itemIdNumber }], (old) => {
-        console.log('old', old);
         const newPages = old.pages.map((page) => {
           const newComment = page.data.map((comment) => {
             if (comment.comment_id === commentId) {

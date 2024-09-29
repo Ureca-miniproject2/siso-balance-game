@@ -8,7 +8,6 @@ export default function useBestCommentLike(commentId, itemId) {
   const itemIdNumber = parseInt(itemId);
   return useMutation({
     mutationFn: async ({ isHeart }) => {
-      console.log('isHeart', isHeart);
       if (!isHeart) {
         const response = await postLike(commentId);
         return response;
