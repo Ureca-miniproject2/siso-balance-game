@@ -42,7 +42,10 @@ export class LikeService {
       }
 
       const existingLike = await queryRunner.manager.findOne(Like, {
-        where: { user, comment },
+        where: {
+          user: { user_id: user.user_id },
+          comment: { comment_id: comment.comment_id },
+        },
       });
 
       if (existingLike) {
@@ -96,7 +99,10 @@ export class LikeService {
       }
 
       const like = await queryRunner.manager.findOne(Like, {
-        where: { user, comment },
+        where: {
+          user: { user_id: user.user_id },
+          comment: { comment_id: comment.comment_id },
+        },
       });
 
       if (!like) {

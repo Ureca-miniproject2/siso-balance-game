@@ -42,6 +42,7 @@ export class CommentController {
   @Delete()
   @ApiCookieAuth('accessToken')
   @ApiOperation({ summary: '아이템에 댓글을 삭제합니다.' })
+  @ApiBody({ type: DeleteCommentDto })
   async deleteComment(
     @Req() req: Request,
     @Body() deleteCommentDto: DeleteCommentDto,

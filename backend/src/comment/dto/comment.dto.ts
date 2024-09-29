@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import { User } from 'src/user/user.entity';
 
 export class CommentDto {
   @IsNotEmpty()
   @ApiProperty({ description: 'The ID of the comment' })
-  comment_id: number;
+  comment_id: string;
 
   @IsNotEmpty()
   @ApiProperty({ description: 'The text of the comment' })
@@ -20,7 +21,7 @@ export class CommentDto {
 
   @IsNotEmpty()
   @ApiProperty({ description: 'The user who made the comment', type: String })
-  user: string;
+  user: User;
 
   @IsNotEmpty()
   @ApiProperty({ description: 'The number of likes the comment has received' })
@@ -28,5 +29,9 @@ export class CommentDto {
 
   @IsNotEmpty()
   @ApiProperty({ description: 'Whether the comment is the best comment' })
-  isBest: boolean;
+  isBest?: boolean;
+
+  @IsNotEmpty()
+  @ApiProperty({ description: 'Whether the user has liked the comment' })
+  isLikedByUser?: boolean;
 }
