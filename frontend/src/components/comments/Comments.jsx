@@ -32,11 +32,12 @@ export default function Comments(props) {
           isTrash={userInfo?.user_id === comment.user.user_id ? true : false}
           isHeart={comment.isLikedByUser}
           bestButtonColor={bestButtonColor}
-          id={comment.comment_id}
+          commentId={comment.comment_id}
           nickname={comment.user.username}
           time={comment.created_at}
           like={comment.likeCount}
           comment={comment.comment_text}
+          itemId={comment.item_id}
         />
       ))}
       {commentsPageData?.pages?.map((page) =>
@@ -47,11 +48,12 @@ export default function Comments(props) {
             isTrash={userInfo?.user_id === comment.user.user_id ? true : false}
             isHeart={comment.isLikedByUser}
             bestButtonColor={bestButtonColor}
-            id={comment.comment_id}
+            commentId={comment.comment_id}
             nickname={comment.user.username}
             time={comment.created_at}
             like={comment.likeCount}
             comment={comment.comment_text}
+            itemId={comment.item_id}
           />
         )),
       )}

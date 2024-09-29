@@ -55,6 +55,7 @@ export class CommentService {
         user: comment.user,
         likeCount: comment.likeCount,
         isLikedByUser: false,
+        item_id: item_id,
       };
 
       if (kakao_id) {
@@ -106,6 +107,7 @@ export class CommentService {
         user: comment.user,
         likeCount: comment.likeCount,
         isLikedByUser: false,
+        item_id,
       };
 
       if (kakao_id) {

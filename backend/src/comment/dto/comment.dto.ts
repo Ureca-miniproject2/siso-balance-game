@@ -8,6 +8,12 @@ export class CommentDto {
   comment_id: string;
 
   @IsNotEmpty()
+  @ApiProperty({
+    description: 'The ID of the item to which the comment belongs',
+  })
+  item_id: string;
+
+  @IsNotEmpty()
   @ApiProperty({ description: 'The text of the comment' })
   comment_text: string;
 

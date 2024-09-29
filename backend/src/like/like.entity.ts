@@ -12,8 +12,8 @@ import {
 @Entity()
 @Unique(['comment', 'user'])
 export class Like {
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ description: '좋아요의 id', example: 1 })
+  @PrimaryGeneratedColumn('uuid')
+  @ApiProperty({ description: '좋아요의 id', example: '1' })
   like_id: string;
 
   @CreateDateColumn()

@@ -47,8 +47,13 @@ export class ItemController {
       page,
       limit,
     );
+
+    const commentsWithItemId = comments.map((comment) => ({
+      ...comment,
+      item_id,
+    }));
     const total = await this.commentService.countComments(item_id);
-    return { data: comments, total };
+    return { data: commentsWithItemId, total };
   }
 
   @Get(':item_id/comments/best')
@@ -74,6 +79,16 @@ export class ItemController {
         console.log('유효하지 않은 토큰입니다.', error.message);
       }
     }
-    return this.commentService.findBestCommentsByItemId(item_id, userId);
+    const bestComments = await this.commentService.findBestCommentsByItemId(
+      item_id,
+      userId,
+    );
+
+    const bestCommentsWithItemId = bestComments.map((comment) => ({
+      ...comment,
+      item_id,
+    }));
+
+    return bestCommentsWithItemId;
   }
 }

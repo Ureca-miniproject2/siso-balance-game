@@ -19,6 +19,6 @@ export class GameDto {
   created_at: Date;
 
   @IsNotEmpty()
-  @ApiProperty({ description: 'The user who made the game', type: Number })
+  @ApiProperty({ description: 'The user who made the game' })
   user_id: string;
 }
