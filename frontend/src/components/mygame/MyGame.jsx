@@ -1,5 +1,3 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
 import DeleteIcon from '../common/icon/DeleteIcon';
 import * as S from './MyGame.styled';
 

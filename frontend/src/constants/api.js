@@ -8,6 +8,7 @@ const END_POINTS = {
   POST_LOGOUT: '/auth/logout',
   POST_LIKE: (commentId) => `/like/${commentId}`,
   DELETE_LIKE: (commentId) => `/like/${commentId}`,
+  CREATE_COMMENT: '/comment',
 };
 
 export default END_POINTS;
