@@ -2,13 +2,32 @@ import * as S from './Comment.styled';
 import TrashIconImg from '../../common/icon/TrashIcon';
 import HeartIconImg from '../../common/icon/HeartIcon';
 import timeAgo from '../../../utils/timeAgo';
-import { useState } from 'react';
+import useBestCommentLike from '../../../hooks/queries/useBestCommentLike';
+import useCommentLike from '../../../hooks/queries/useCommentLike';
 
 export default function Comment(props) {
-  const [isHeart, setIsHeart] = useState(props.isHeart);
+  const { mutate: bestCommentLikeMutate } = useBestCommentLike(props.commentId, props.itemId);
+  const { mutate: commentLikeMutate } = useCommentLike(props.commentId, props.itemId);
   const handleClick = () => {
-    setIsHeart((prev) => !prev); //하트 컬러 변경 함수 호출
+    console.log('click');
+    if (props.isBest) {
+      bestCommentLikeMutate({ isHeart: props.isHeart });
+      console.log('best');
+      return;
+    } else {
+      commentLikeMutate({ isHeart: props.isHeart });
+      console.log('not best');
+      return;
+    }
   };
+
+  // const handleLike = () => {
+  //   if (isHeart) {
+  //     //좋아요 취소
+  //     return;
+  //   }
+  //   //좋아요
+  // };
 
   return (
     <S.CommentContainer isBest={props.isBest}>
@@ -22,7 +41,7 @@ export default function Comment(props) {
           <TrashIconImg />
         </S.TrashIcon>
         <S.LikeContainer>
-          <S.HeartIcon onClick={handleClick} isHeart={isHeart}>
+          <S.HeartIcon onClick={handleClick} isHeart={props.isHeart}>
             <HeartIconImg />
           </S.HeartIcon>
           <S.LikeStyle>{props.like}</S.LikeStyle>

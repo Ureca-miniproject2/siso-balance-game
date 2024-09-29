@@ -47,8 +47,13 @@ export class ItemController {
       page,
       limit,
     );
+
+    const commentsWithItemId = comments.map((comment) => ({
+      ...comment,
+      item_id,
+    }));
     const total = await this.commentService.countComments(item_id);
-    return { data: comments, total };
+    return { data: commentsWithItemId, total };
   }
 
   @Get(':item_id/comments/best')
@@ -62,7 +67,6 @@ export class ItemController {
     @Param('item_id') item_id: string,
   ): Promise<CommentDto[]> {
     const token = req.cookies['accessToken']; // 쿠키에서 accessToken 읽기
-    console.log('token:', token);
     let userId: string | null = null;
     if (token) {
       try {
@@ -75,7 +79,16 @@ export class ItemController {
         console.log('유효하지 않은 토큰입니다.', error.message);
       }
     }
-    console.log('userId:', userId);
-    return this.commentService.findBestCommentsByItemId(item_id, userId);
+    const bestComments = await this.commentService.findBestCommentsByItemId(
+      item_id,
+      userId,
+    );
+
+    const bestCommentsWithItemId = bestComments.map((comment) => ({
+      ...comment,
+      item_id,
+    }));
+
+    return bestCommentsWithItemId;
   }
 }

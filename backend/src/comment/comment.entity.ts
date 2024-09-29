@@ -15,10 +15,10 @@ import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Comment {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
     description: '댓글의 고유 식별자',
-    example: '1',
+    example: '1212313',
   })
   comment_id: string;
 
