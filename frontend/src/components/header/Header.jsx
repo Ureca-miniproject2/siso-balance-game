@@ -11,6 +11,7 @@ export default function Header() {
   const handleLogout = () => {
     logout();
   };
+
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -31,10 +32,16 @@ export default function Header() {
               로그인
             </S.HeaderNavItem>
           )}
-          <S.HeaderNavItem to="/item" isPage={location.pathname === '/item'}>
+          <S.HeaderNavItem
+            isPage={location.pathname === '/item'}
+            to={userInfo?.user_id ? '/item' : '/login'}
+          >
             내 밸런스 게임
           </S.HeaderNavItem>
-          <S.HeaderNavItem to="/create" isPage={location.pathname === '/create'}>
+          <S.HeaderNavItem
+            isPage={location.pathname === '/create'}
+            to={userInfo?.user_id ? '/create' : '/login'}
+          >
             밸런스게임만들기
           </S.HeaderNavItem>
         </S.HeaderNav>
