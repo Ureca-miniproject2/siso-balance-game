@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { UserInfoProvider } from './context/UserInfoContext.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 async function enableMocking() {
   if (import.meta.env.MODE !== 'development') {
@@ -25,8 +28,11 @@ enableMocking().then(() => {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App />
+          <UserInfoProvider>
+            <ToastContainer position="top-center" limit={1} autoClose={2000} hideProgressBar />
+            <GlobalStyle />
+            <App />
+          </UserInfoProvider>
         </ThemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
