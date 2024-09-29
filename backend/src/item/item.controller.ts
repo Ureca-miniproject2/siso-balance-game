@@ -4,6 +4,7 @@ import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CommentService } from 'src/comment/comment.service';
 import { CommentDto } from 'src/comment/dto/comment.dto';
+import { ItemCommentsResponseDto } from 'src/item/dto/itemCommentsResponse.dto';
 
 @Controller('item')
 @ApiTags('아이템 api')
@@ -18,14 +19,14 @@ export class ItemController {
   @ApiOperation({ summary: '아이템의 댓글들을 가져옵니다.' })
   @ApiCreatedResponse({
     description: '아이템의 댓글들을 가져옵니다.',
-    type: [CommentDto],
+    type: ItemCommentsResponseDto,
   })
   async getCommentsByItemId(
     @Req() req: Request,
     @Param('item_id') item_id: string,
     @Query('page') page: number = 0, // 페이지 번호
     @Query('limit') limit: number = 10,
-  ): Promise<CommentDto[]> {
+  ): Promise<ItemCommentsResponseDto> {
     const token = req.cookies['accessToken']; // 쿠키에서 accessToken 읽기
 
     let userId: string | null = null;
@@ -38,12 +39,13 @@ export class ItemController {
         console.log('유효하지 않은 토큰입니다.', error.message);
       }
     }
-    return this.commentService.findCommentsByItemId(
+    const comments = await this.commentService.findCommentsByItemId(
       item_id,
       userId,
       page,
       limit,
     );
+    return { data: comments, total: comments.length };
   }
 
   @Get(':item_id/comments/best')
