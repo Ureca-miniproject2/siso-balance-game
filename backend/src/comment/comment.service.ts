@@ -39,7 +39,7 @@ export class CommentService {
     // 댓글 가져오기
     const comments = await this.commentsRepository.find({
       where: { item: { item_id } },
-      relations: ['user', 'likes'],
+      relations: ['user', 'likes', 'likes.user'],
       skip: page * limit,
       take: limit,
       order: { created_at: 'DESC' },
@@ -85,6 +85,7 @@ export class CommentService {
     // 상위 3개의 댓글을 likeCount 순으로 정렬하여 가져오기
     const topComments = await this.commentsRepository.find({
       where: { item: { item_id } },
+      relations: ['user', 'likes', 'likes.user'],
       select: [
         'comment_id',
         'comment_text',
@@ -92,11 +93,9 @@ export class CommentService {
         'updated_at',
         'likeCount',
       ],
-      relations: ['user'],
       order: { likeCount: 'DESC' },
       take: 2,
     });
-
     // 상위 3개의 댓글에 isBest를 true로 설정
     const topCommentDtos = topComments.map((comment) => {
       const baseDto = {
@@ -112,7 +111,7 @@ export class CommentService {
       if (kakao_id) {
         return {
           ...baseDto,
-          isLikedByUser: comment.likes?.some(
+          isLikedByUser: comment.likes.some(
             (like) => like.user.user_id === kakao_id,
           ),
         };
