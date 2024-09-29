@@ -62,7 +62,6 @@ export class ItemController {
     @Param('item_id') item_id: string,
   ): Promise<CommentDto[]> {
     const token = req.cookies['accessToken']; // 쿠키에서 accessToken 읽기
-    console.log('token:', token);
     let userId: string | null = null;
     if (token) {
       try {
@@ -75,7 +74,6 @@ export class ItemController {
         console.log('유효하지 않은 토큰입니다.', error.message);
       }
     }
-    console.log('userId:', userId);
     return this.commentService.findBestCommentsByItemId(item_id, userId);
   }
 }
