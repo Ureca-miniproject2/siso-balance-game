@@ -13,7 +13,7 @@ export default function Items() {
       fetchNextPage();
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage]);
-  console.log(data);
+
   return (
     <>
       <S.ItemContainer>

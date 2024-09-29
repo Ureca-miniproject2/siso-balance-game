@@ -13,3 +13,7 @@ export const SmallContainer = styled.div`
   overflow-y: auto;
   /* border: 1px solid red; */
 `;
+
+export const ObserverDiv = styled.div`
+  height: 20px;
+`;

@@ -32,8 +32,10 @@ export class ItemController {
     let userId: string | null = null;
     if (token) {
       try {
-        const decoded = this.jwtService.verify(token); // 토큰 검증 및 디코딩
-        userId = decoded.user_id; // user_id 추출
+        const decoded = this.jwtService.verify(token, {
+          secret: process.env.JWT_SECRET,
+        }); // 토큰 검증 및 디코딩
+        userId = decoded.userId; // user_id 추출
       } catch (error) {
         // 토큰 검증 실패 시 userId를 null로 유지하고 계속 진행
         console.log('유효하지 않은 토큰입니다.', error.message);
@@ -45,7 +47,8 @@ export class ItemController {
       page,
       limit,
     );
-    return { data: comments, total: comments.length };
+    const total = await this.commentService.countComments(item_id);
+    return { data: comments, total };
   }
 
   @Get(':item_id/comments/best')
@@ -63,8 +66,10 @@ export class ItemController {
     let userId: string | null = null;
     if (token) {
       try {
-        const decoded = this.jwtService.verify(token); // 토큰 검증 및 디코딩
-        userId = decoded.user_id; // user_id 추출
+        const decoded = this.jwtService.verify(token, {
+          secret: process.env.JWT_SECRET,
+        }); // 토큰 검증 및 디코딩
+        userId = decoded.userId; // user_id 추출
       } catch (error) {
         // 토큰 검증 실패 시 userId를 null로 유지하고 계속 진행
         console.log('유효하지 않은 토큰입니다.', error.message);

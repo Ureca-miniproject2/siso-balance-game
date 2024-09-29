@@ -40,7 +40,7 @@ export class CommentService {
     const comments = await this.commentsRepository.find({
       where: { item: { item_id } },
       relations: ['user', 'likes'],
-      skip: (page - 1) * limit,
+      skip: page * limit,
       take: limit,
       order: { created_at: 'DESC' },
     });
@@ -112,12 +112,12 @@ export class CommentService {
       if (kakao_id) {
         return {
           ...baseDto,
-          isLikedByUser: comment.likes.some(
+          isLikedByUser: comment.likes?.some(
             (like) => like.user.user_id === kakao_id,
           ),
         };
       } else {
-        return baseDto; // 로그인하지 않은 경우 isLikedByUser 필드 제외
+        return baseDto;
       }
     });
 
@@ -168,5 +168,9 @@ export class CommentService {
     }
 
     await this.commentsRepository.remove(comment);
+  }
+
+  async countComments(item_id: string): Promise<number> {
+    return this.commentsRepository.count({ where: { item: { item_id } } });
   }
 }
