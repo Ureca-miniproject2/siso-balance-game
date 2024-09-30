@@ -7,10 +7,12 @@ export default function MyGame({ id, myGametext1, myGametext2 }) {
   const { mutate: deleteGames } = useDeleteMyGames();
 
   const handleDelete = async () => {
-    try {
-      await deleteGames(id); // 삭제 요청 실행
-    } catch (error) {
-      console.error('게임 삭제 중 오류 발생:', error);
+    if (window.confirm('삭제하시겠습니까?')) {
+      try {
+        await deleteGames(id); // 삭제 요청 실행
+      } catch (error) {
+        console.error('게임 삭제 중 오류 발생:', error);
+      }
     }
   };
 

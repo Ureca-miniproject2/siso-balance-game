@@ -25,7 +25,7 @@ export const ButtonClick = styled.button`
   width: 5.2rem;
   height: 5.2rem;
   border: 0.2rem solid ${(props) => props.theme.colors.gray400};
-  margin-left: 52.6rem;
+  margin-left: 35%;
   border-radius: 1rem;
   background-color: ${(props) =>
     props.isActive ? props.theme.colors.black : props.theme.colors.gray350};

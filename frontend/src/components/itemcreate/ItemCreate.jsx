@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import * as S from './ItemCreate.styled';
 import useCreateGame from '../../hooks/queries/useCreateGame';
+import { toast } from 'react-toastify';
 
 export default function ItemCreate() {
   const { mutate } = useCreateGame();
@@ -24,8 +25,13 @@ export default function ItemCreate() {
     const firstItemText = textarea1Ref.current.value;
     const secondItemText = textarea2Ref.current.value;
 
-    mutate({ firstItemText, secondItemText });
+    if (firstItemText.trim() !== '' && secondItemText.trim() !== '') {
+      mutate({ firstItemText, secondItemText });
+    } else {
+      toast.error('게임 등록에 실패했습니다. 모든 항목을 입력해주세요.');
+    }
   };
+
   return (
     <>
       <S.ItemContainer>
