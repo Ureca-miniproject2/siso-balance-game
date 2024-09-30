@@ -171,7 +171,7 @@ export class GameService {
     itemDto.item_text = item.item_text;
     itemDto.game_id = item.game.game_id;
     itemDto.isSelected = isSelected;
-    itemDto.selected_count = item.comments ? item.comments.length : 0;
+    itemDto.selected_count = item.selected_count;
     return itemDto;
   }
 
