@@ -9,6 +9,8 @@ const END_POINTS = {
   POST_LIKE: (commentId) => `/like/${commentId}`,
   DELETE_LIKE: (commentId) => `/like/${commentId}`,
   CREATE_COMMENT: '/comment',
+  GET_MY_GAMES: (page, limit) => `/game/user?page=${page}&limit=${limit}`,
+  DELETE_MY_GAMES: (gameId) => `/game/${gameId}`,
 };
 
 export default END_POINTS;

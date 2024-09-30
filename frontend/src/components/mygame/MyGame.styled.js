@@ -18,17 +18,13 @@ export const DeleteButton = styled.button`
 
 export const ItemContainer = styled.div`
   font-family: 'HSSantokki2-Regular';
-  margin-top: 2rem;
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(3, 1fr); /* 3개의 열 생성 */
-  position: relative;
-  gap: 3.2rem;
 `;
 
 export const ItemListContainer = styled.div`
   position: relative;
 `;
-
 export const ItemList = styled.div`
   word-break: keep-all;
   padding: 5rem;
