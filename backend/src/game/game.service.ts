@@ -7,6 +7,7 @@ import { Game } from 'src/game/game.entity';
 import { ItemDto } from 'src/item/dto/item.dto';
 import { ItemsResponseDto } from 'src/item/dto/itemsResponse.dto';
 import { Item } from 'src/item/item.entity';
+import { SelectedItem } from 'src/selected-item/selected-item.entity';
 import { User } from 'src/user/user.entity';
 import { Repository } from 'typeorm';
 
@@ -19,6 +20,8 @@ export class GameService {
     private usersRepository: Repository<User>,
     @InjectRepository(Item)
     private itemsRepository: Repository<Item>,
+    @InjectRepository(SelectedItem)
+    private selectedItemsRepository: Repository<SelectedItem>,
   ) {}
 
   async findAll({
@@ -52,22 +55,45 @@ export class GameService {
     return this.gamesRepository.findOneBy({ game_id: gameId });
   }
 
-  async findItemsByGameId(game_id: string): Promise<ItemsResponseDto> {
+  async findItemsByGameId(
+    game_id: string,
+    user_id: string | null,
+  ): Promise<ItemsResponseDto> {
     // Game 엔티티에서 game_id를 기준으로 Item들을 가져옵니다.
     const items = await this.itemsRepository
       .createQueryBuilder('item')
       .leftJoinAndSelect('item.game', 'game')
       .where('game.game_id = :game_id', { game_id })
       .getMany();
-
     if (items.length === 0) {
       throw new Error('No items found for the given game_id');
     }
+
+    if (user_id === null) {
+      const [firstItem, secondItem] = items;
+
+      const response = new ItemsResponseDto();
+      response.firstItem = this.toItemDto(firstItem, false); // 항상 false
+      response.secondItem = this.toItemDto(secondItem, false); // 항상 false
+      return response;
+    }
+
+    const selectedItem = await this.selectedItemsRepository.findOne({
+      where: { user: { user_id }, game: { game_id } },
+      relations: ['item'],
+    });
+
     const [firstItem, secondItem] = items;
 
     const response = new ItemsResponseDto();
-    response.firstItem = this.toItemDto(firstItem);
-    response.secondItem = this.toItemDto(secondItem);
+    response.firstItem = this.toItemDto(
+      firstItem,
+      selectedItem?.item.item_id === firstItem.item_id,
+    );
+    response.secondItem = this.toItemDto(
+      secondItem,
+      selectedItem?.item.item_id === secondItem.item_id,
+    );
 
     return response;
   }
@@ -139,11 +165,12 @@ export class GameService {
     await this.gamesRepository.remove(game);
   }
 
-  private toItemDto(item: Item): ItemDto {
+  private toItemDto(item: Item, isSelected: boolean): ItemDto {
     const itemDto = new ItemDto();
     itemDto.item_id = item.item_id;
     itemDto.item_text = item.item_text;
     itemDto.game_id = item.game.game_id;
+    itemDto.isSelected = isSelected;
     itemDto.selected_count = item.comments ? item.comments.length : 0;
     return itemDto;
   }

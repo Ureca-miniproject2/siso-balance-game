@@ -17,4 +17,8 @@ export class ItemDto {
   @IsNotEmpty()
   @ApiProperty({ description: 'The number of comments on the item' })
   selected_count: number;
+
+  @IsNotEmpty()
+  @ApiProperty({ description: 'The boolean of user selected' })
+  isSelected: boolean;
 }
