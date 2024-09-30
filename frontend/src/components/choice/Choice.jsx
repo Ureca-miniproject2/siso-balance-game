@@ -26,6 +26,13 @@ export default function Choice(props) {
           isselected={game?.firstItem.isSelected}
           isshow={game?.firstItem.isSelected || game?.secondItem.isSelected}
         />
+        <S.percentText>
+          {calculatePercent(
+            game?.firstItem.selected_count,
+            game?.firstItem.selected_count + game?.secondItem.selected_count,
+          )}
+          %
+        </S.percentText>
       </S.ItemList>
       <S.ItemList2
         onClick={() => selectItemMutate(game?.secondItem?.item_id)}
@@ -40,6 +47,13 @@ export default function Choice(props) {
           isselected={game?.secondItem.isSelected}
           isshow={game?.firstItem.isSelected || game?.secondItem.isSelected}
         />
+        <S.percentText>
+          {calculatePercent(
+            game?.secondItem.selected_count,
+            game?.firstItem.selected_count + game?.secondItem.selected_count,
+          )}
+          %
+        </S.percentText>
       </S.ItemList2>
     </S.ItemContainer>
   );

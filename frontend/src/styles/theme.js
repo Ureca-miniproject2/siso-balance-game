@@ -15,5 +15,6 @@ export const theme = {
     primaryRed: '#F34343',
     percentBoxBlue: '#11CEFA',
     percentBoxGreen: '#37EF85',
+    white: '#FFFFFF',
   },
 };

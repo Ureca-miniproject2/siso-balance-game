@@ -13,7 +13,7 @@ export const ItemContainer = styled.div`
 
 export const ItemList = styled.div`
   position: relative;
-  word-break: keep-all;
+  word-break: break-all;
   width: 50%;
   padding: 5rem;
   text-align: center;
@@ -33,7 +33,7 @@ export const ItemList = styled.div`
 
 export const ItemList2 = styled.div`
   position: relative;
-  word-break: keep-all;
+  word-break: break-all;
   width: 50%;
   padding: 5rem;
   text-align: center;
@@ -84,4 +84,18 @@ export const percentBox = styled.div`
   z-index: 1;
   border-radius: ${(props) => (props.first ? '2rem 0 0 0' : '0 2rem 0 0')};
   animation: ${(props) => growHeight(props.percent)} 0.7s ease-in-out forwards;
+`;
+
+export const percentText = styled.div`
+  position: absolute;
+  bottom: 2.7rem;
+  right: 2.7rem;
+  font-family: 'pretendard';
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.black};
+  border-radius: 1rem;
+  padding: 0.5rem 2.5rem;
+  z-index: 2;
 `;

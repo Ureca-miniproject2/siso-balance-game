@@ -26,7 +26,7 @@ export const ItemListContainer = styled.div`
   position: relative;
 `;
 export const ItemList = styled.div`
-  word-break: keep-all;
+  word-break: break-all;
   padding: 5rem;
   text-align: center;
   display: flex;
@@ -44,7 +44,7 @@ export const ItemList = styled.div`
 `;
 
 export const ItemList2 = styled.div`
-  word-break: keep-all;
+  word-break: break-all;
   padding: 5rem;
   text-align: center;
   display: flex;

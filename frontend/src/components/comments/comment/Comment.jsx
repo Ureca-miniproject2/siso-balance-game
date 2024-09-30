@@ -5,7 +5,6 @@ import timeAgo from '../../../utils/timeAgo';
 import useBestCommentLike from '../../../hooks/queries/useBestCommentLike';
 import useCommentLike from '../../../hooks/queries/useCommentLike';
 import useDeleteComment from '../../../hooks/queries/useDeleteComment';
-import { toast } from 'react-toastify';
 
 export default function Comment(props) {
   const { mutate: bestCommentLikeMutate } = useBestCommentLike(props.commentId, props.itemId);
@@ -15,7 +14,7 @@ export default function Comment(props) {
     if (props.isBest) {
       bestCommentLikeMutate({ isHeart: props.isHeart });
       return;
-     } else {
+    } else {
       commentLikeMutate({ isHeart: props.isHeart });
       return;
     }
