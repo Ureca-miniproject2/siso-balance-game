@@ -4,10 +4,12 @@ import HeartIconImg from '../../common/icon/HeartIcon';
 import timeAgo from '../../../utils/timeAgo';
 import useBestCommentLike from '../../../hooks/queries/useBestCommentLike';
 import useCommentLike from '../../../hooks/queries/useCommentLike';
+import useDeleteComment from '../../../hooks/queries/useDeleteComment';
 
 export default function Comment(props) {
   const { mutate: bestCommentLikeMutate } = useBestCommentLike(props.commentId, props.itemId);
   const { mutate: commentLikeMutate } = useCommentLike(props.commentId, props.itemId);
+  const { mutate: deleteCommentMutate } = useDeleteComment(props.commentId, props.itemId);
   const handleClick = () => {
     if (props.isBest) {
       bestCommentLikeMutate({ isHeart: props.isHeart });
@@ -18,13 +20,9 @@ export default function Comment(props) {
     }
   };
 
-  // const handleLike = () => {
-  //   if (isHeart) {
-  //     //좋아요 취소
-  //     return;
-  //   }
-  //   //좋아요
-  // };
+  const handleDeleteComment = () => {
+    deleteCommentMutate();
+  };
 
   return (
     <S.CommentContainer isBest={props.isBest}>
@@ -34,7 +32,7 @@ export default function Comment(props) {
         </S.BestButton>
         <S.NickNameStyle>{props.nickname}</S.NickNameStyle>
         <S.TimeStyle>{timeAgo(new Date(props.time))}</S.TimeStyle>
-        <S.TrashIcon isTrash={props.isTrash}>
+        <S.TrashIcon onClick={handleDeleteComment} isTrash={props.isTrash}>
           <TrashIconImg />
         </S.TrashIcon>
         <S.LikeContainer>

@@ -1,9 +1,16 @@
-import { Body, Controller, Delete, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
 import {
   ApiBody,
   ApiCookieAuth,
@@ -39,15 +46,14 @@ export class CommentController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete()
+  @Delete(':comment_id')
   @ApiCookieAuth('accessToken')
   @ApiOperation({ summary: '아이템에 댓글을 삭제합니다.' })
-  @ApiBody({ type: DeleteCommentDto })
   async deleteComment(
     @Req() req: Request,
-    @Body() deleteCommentDto: DeleteCommentDto,
+    @Param('comment_id') comment_id: string,
   ): Promise<void> {
     const kakaoId = req.user.kakaoId;
-    return this.commentService.deleteComment(kakaoId, deleteCommentDto);
+    return this.commentService.deleteComment(kakaoId, comment_id);
   }
 }
