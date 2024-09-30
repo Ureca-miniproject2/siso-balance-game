@@ -62,6 +62,13 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: 환경 변수 설정
+        run: |
+          echo "VITE_CLIENT_ID=${{ secrets.VITE_CLIENT_ID }}" >> .env
+          echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.VITE_KAKAO_REDIRECT_URI }}" >> .env
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
+
+
       - name: 프론트엔드 빌드
         run: npm run build
 
