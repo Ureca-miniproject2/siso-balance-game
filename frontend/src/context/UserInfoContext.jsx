@@ -9,7 +9,7 @@ export const UserInfoProvider = ({ children }) => {
 
   const logout = useCallback(async () => {
     const data = await postLogout();
-    setUserInfo({});
+    setUserInfo(null);
     toast.success(data.message);
   }, []);
 
