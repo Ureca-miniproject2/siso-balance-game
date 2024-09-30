@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateGameDto } from 'src/game/dto/create-game.dto';
 import { GameDto } from 'src/game/dto/game.dto';
+import { GameUnitDto } from 'src/game/dto/gameUnit.dto';
 import { Game } from 'src/game/game.entity';
 import { ItemDto } from 'src/item/dto/item.dto';
 import { ItemsResponseDto } from 'src/item/dto/itemsResponse.dto';
@@ -26,14 +27,14 @@ export class GameService {
   }: {
     page: number;
     limit: number;
-  }): Promise<any[]> {
+  }): Promise<GameUnitDto[]> {
     const offset = page * limit;
 
     // Game과 관련된 Item들을 JOIN
     const games = await this.gamesRepository
       .createQueryBuilder('game')
       .leftJoinAndSelect('game.items', 'item')
-      .orderBy('game.game_id', 'ASC')
+      .orderBy('game.created_at', 'DESC')
       .skip(offset)
       .take(limit)
       .getMany();
@@ -108,21 +109,22 @@ export class GameService {
     user_id: string,
     page: number = 0,
     limit: number = 10,
-  ): Promise<GameDto[]> {
+  ): Promise<GameUnitDto[]> {
     const offset = page * limit;
 
     // Game 엔티티에서 user_id에 따른 게임들을 페이지네이션하여 가져옵니다.
-    const games = await this.gamesRepository.find({
-      where: { user: { user_id } },
-      order: { created_at: 'DESC' },
-      relations: ['items'],
-      skip: offset,
-      take: limit,
-    });
+    const games = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.items', 'item')
+      .where('game.user.user_id = :user_id', { user_id }) // 특정 userId의 게임만 가져오도록 조건 추가
+      .orderBy('game.created_at', 'DESC') // 최근 순으로 정렬
+      .skip(offset) // 페이징 처리
+      .take(limit) // 가져올 개수
+      .getMany();
 
-    // Game 엔티티를 GameDto로 변환
-    console.log(games);
-    return games.map((game) => this.toGameDto(game));
+    return games.map((game) => {
+      return { ...game };
+    });
   }
 
   async deleteGame(user_id: string, game_id: string): Promise<void> {

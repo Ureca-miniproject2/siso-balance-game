@@ -23,7 +23,6 @@ import {
 } from '@nestjs/swagger';
 import { GameResponseDto } from 'src/game/dto/gameResponse.dto';
 import { ItemsResponseDto } from 'src/item/dto/itemsResponse.dto';
-import { GameDto } from 'src/game/dto/game.dto';
 
 @Controller('game')
 @ApiTags('게임 api')
@@ -78,18 +77,25 @@ export class GameController {
   @UseGuards(AuthGuard('jwt'))
   @ApiCookieAuth('accessToken')
   @Get('user')
-  @ApiOperation({ summary: '사용자가 만든 게임들을 가져옵니다.' })
+  @ApiOperation({ summary: '자신이 만든 게임들을 가져옵니다.' })
   @ApiCreatedResponse({
     description: '자신이 만든 게임들을 가져옵니다.',
-    type: [GameDto],
+    type: [GameResponseDto],
   })
   async findGamesByUserId(
     @Req() req: Request,
     @Query('page') page: number = 0, // 페이지 번호
     @Query('limit') limit: number = 10, // 페이지당 아이템 수
-  ): Promise<GameDto[]> {
+  ): Promise<GameResponseDto> {
     const kakaoId = req.user.kakaoId;
-    return await this.gameService.findGamesByUserId(kakaoId, page, limit);
+    const games = await this.gameService.findGamesByUserId(
+      kakaoId,
+      page,
+      limit,
+    );
+    const total = games.length;
+
+    return { data: games, total };
   }
 
   @UseGuards(AuthGuard('jwt'))
