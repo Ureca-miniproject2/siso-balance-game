@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/comment/comment.entity';
 import { CommentDto } from 'src/comment/dto/comment.dto';
 import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
-import { DeleteCommentDto } from 'src/comment/dto/delete-comment.dto';
 import { Item } from 'src/item/item.entity';
 import { User } from 'src/user/user.entity';
 import { Repository } from 'typeorm';
@@ -154,12 +153,7 @@ export class CommentService {
     await this.commentsRepository.save(comment);
   }
 
-  async deleteComment(
-    userId: string,
-    deleteCommentDto: DeleteCommentDto,
-  ): Promise<void> {
-    const { comment_id } = deleteCommentDto;
-
+  async deleteComment(userId: string, comment_id: string): Promise<void> {
     const comment = await this.commentsRepository.findOne({
       where: { comment_id, user: { user_id: userId } },
     });
