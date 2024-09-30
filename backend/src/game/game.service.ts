@@ -104,6 +104,10 @@ export class GameService {
   ): Promise<void> {
     const { firstItemText, secondItemText } = createGameDto;
 
+    if (!firstItemText || !secondItemText) {
+      throw new Error('게임을 생성하기 위해서는 두 개의 아이템이 필요합니다.');
+    }
+
     // 1. 사용자 조회
     const user = await this.usersRepository.findOneBy({ user_id: userId });
     if (!user) {
@@ -171,7 +175,7 @@ export class GameService {
     itemDto.item_text = item.item_text;
     itemDto.game_id = item.game.game_id;
     itemDto.isSelected = isSelected;
-    itemDto.selected_count = item.comments ? item.comments.length : 0;
+    itemDto.selected_count = item.selected_count;
     return itemDto;
   }
 

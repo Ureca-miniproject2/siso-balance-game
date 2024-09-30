@@ -14,7 +14,7 @@ export default function Comment(props) {
     if (props.isBest) {
       bestCommentLikeMutate({ isHeart: props.isHeart });
       return;
-    } else {
+     } else {
       commentLikeMutate({ isHeart: props.isHeart });
       return;
     }
