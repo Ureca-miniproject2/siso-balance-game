@@ -23,6 +23,7 @@ export default function ItemCreate() {
   const handleOnclick = () => {
     const firstItemText = textarea1Ref.current.value;
     const secondItemText = textarea2Ref.current.value;
+
     mutate({ firstItemText, secondItemText });
   };
   return (

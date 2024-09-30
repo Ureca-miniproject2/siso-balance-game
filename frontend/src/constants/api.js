@@ -12,6 +12,7 @@ const END_POINTS = {
   GET_MY_GAMES: (page, limit) => `/game/user?page=${page}&limit=${limit}`,
   DELETE_MY_GAMES: (gameId) => `/game/${gameId}`,
   DELETE_COMMENT: (commentId) => `/comment/${commentId}`,
+  SELECT_ITEM: (gameId, itemId) => `/games/${gameId}/items/${itemId}/select`,
 };
 
 export default END_POINTS;
