@@ -68,6 +68,7 @@ export class ItemController {
   ): Promise<CommentDto[]> {
     const token = req.cookies['accessToken']; // 쿠키에서 accessToken 읽기
     let userId: string | null = null;
+
     if (token) {
       try {
         const decoded = this.jwtService.verify(token, {

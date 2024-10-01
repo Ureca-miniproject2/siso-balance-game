@@ -31,7 +31,10 @@ export class GameService {
     page: number;
     limit: number;
   }): Promise<GameUnitDto[]> {
-    const offset = page * limit;
+    // page와 limit이 음수가 되지 않도록 보정
+    const validPage = Math.max(0, page);
+    const validLimit = Math.max(1, limit); // 최소 1개의 항목이 반환되도록 보정
+    const offset = validPage * validLimit;
 
     // Game과 관련된 Item들을 JOIN
     const games = await this.gamesRepository
@@ -39,7 +42,7 @@ export class GameService {
       .leftJoinAndSelect('game.items', 'item')
       .orderBy('game.created_at', 'DESC')
       .skip(offset)
-      .take(limit)
+      .take(validLimit)
       .getMany();
 
     return games.map((game) => {

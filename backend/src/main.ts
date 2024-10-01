@@ -9,7 +9,7 @@ async function bootstrap() {
   const port = process.env.PORT || 80;
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: true,
+    origin: 'https://siso-balance-game.com',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

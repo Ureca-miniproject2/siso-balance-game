@@ -13,7 +13,7 @@ export class typeORMConfig implements TypeOrmOptionsFactory {
       database: process.env.TYPEORM_DATABASE,
       timezone: '+09:00',
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
-      synchronize: true,
+      synchronize: false,
     };
   }
 }
