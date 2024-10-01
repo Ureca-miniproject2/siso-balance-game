@@ -10,7 +10,7 @@ export const InputContainer = styled.div`
 
 export const TextInput = styled.input`
   position: fixed;
-  width: 32%;
+  width: 50rem;
   height: 5.2rem;
   border: 0.2rem solid ${(props) => props.theme.colors.gray400};
   border-radius: 1rem;
@@ -25,7 +25,7 @@ export const ButtonClick = styled.button`
   width: 5.2rem;
   height: 5.2rem;
   border: 0.2rem solid ${(props) => props.theme.colors.gray400};
-  margin-left: 35%;
+  margin-left: 54rem;
   border-radius: 1rem;
   background-color: ${(props) =>
     props.isActive ? props.theme.colors.black : props.theme.colors.gray350};

@@ -13,6 +13,7 @@ export const ItemContainer = styled.div`
 
 export const ItemList = styled.div`
   position: relative;
+  cursor: pointer;
   word-break: break-all;
   width: 50%;
   padding: 5rem;
@@ -33,6 +34,7 @@ export const ItemList = styled.div`
 
 export const ItemList2 = styled.div`
   position: relative;
+  cursor: pointer;
   word-break: break-all;
   width: 50%;
   padding: 5rem;
